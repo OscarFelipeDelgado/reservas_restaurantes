@@ -4,8 +4,12 @@ var http = require('http'); //protocolo de intercambio de archivos
 var path = require('path'); //direccion
 
 var conectado = require('./src/conexion/index');
+
 const CatalogoUniversalModelo = require('./src/modelos/CataUniversalModelo')
-var CataUnivRuta = require('./src/rutas/CataUniversalRuta')
+var CataUnivRuta = require('./src/rutas/CataUniversalRuta');
+
+const PersonasModelo = require('./src/modelos/PersonasModelo');
+var PersonasRuta = require('./src/rutas/PersonasRuta');
 //var tipdoc = require('./src/Rutas/tipdocruta');//ruta
 
 var app = express(); //recibe un constructor
@@ -40,6 +44,7 @@ app.use(function (req, res, next)
 });
 
 app.use('/CataUniversal', CataUnivRuta());
+app.use('/Personas', PersonasRuta());
 
 //============================================================
 //app.use('/tipdoc', tipdoc());//ruta para el servicio
@@ -47,9 +52,7 @@ app.use('/CataUniversal', CataUnivRuta());
 
 http.createServer(app).listen(app.get('port'), function ( )
 {
-
     console.log('Servidor Express escuchando por el puerto ' + app.get('port'));
-
 });
 
 //Prueba para hacer get desde el navegador
