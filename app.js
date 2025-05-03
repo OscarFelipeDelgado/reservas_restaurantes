@@ -10,6 +10,9 @@ var CataUnivRuta = require('./src/rutas/CataUniversalRuta');
 
 const PersonasModelo = require('./src/modelos/PersonasModelo');
 var PersonasRuta = require('./src/rutas/PersonasRuta');
+
+var ReservaModeloRutas = require('./src/rutas/ReservasRuta')
+
 //var tipdoc = require('./src/Rutas/tipdocruta');//ruta
 
 var app = express(); //recibe un constructor
@@ -46,6 +49,7 @@ app.use(function (req, res, next)
 app.use('/CataUniversal', CataUnivRuta());
 app.use('/Personas', PersonasRuta());
 
+app.use('/Reservas', ReservaModeloRutas());
 //============================================================
 //app.use('/tipdoc', tipdoc());//ruta para el servicio
 
