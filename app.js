@@ -6,6 +6,8 @@ var path = require('path'); //direccion
 var conectado = require('./src/conexion/index');
 const CatalogoUniversalModelo = require('./src/modelos/CataUniversalModelo')
 var CataUnivRuta = require('./src/rutas/CataUniversalRuta')
+var ReservaModeloRutas = require('./src/rutas/ReservasRuta')
+
 //var tipdoc = require('./src/Rutas/tipdocruta');//ruta
 
 var app = express(); //recibe un constructor
@@ -40,7 +42,7 @@ app.use(function (req, res, next)
 });
 
 app.use('/CataUniversal', CataUnivRuta());
-
+app.use('/Reservas', ReservaModeloRutas());
 //============================================================
 //app.use('/tipdoc', tipdoc());//ruta para el servicio
 
