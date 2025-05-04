@@ -13,15 +13,12 @@ var PersonasRuta = require('./src/rutas/PersonasRuta');
 
 var ReservaModeloRutas = require('./src/rutas/ReservasRuta')
 
-<<<<<<< Updated upstream
 var MenusModeloRutas = require('./src/rutas/MenusRutas')
-=======
 const ContactosModelo = require('./src/modelos/ContactosModelo');
 var ContactosRuta = require('./src/rutas/ContactosRuta');
 
 const MesasXMenuModelo = require('../modelos/mesas_x_menu_Modelo');
 var MesasXMenuRuta = require('./src/rutas/mesas_x_menu_Ruta');
->>>>>>> Stashed changes
 
 //var tipdoc = require('./src/Rutas/tipdocruta');//ruta
 
@@ -59,17 +56,14 @@ app.use(function (req, res, next)
 app.use('/CataUniversal', CataUnivRuta());
 app.use('/Personas', PersonasRuta());
 app.use('/Reservas', ReservaModeloRutas());
-<<<<<<< Updated upstream
 app.use('/Menus', MenusModeloRutas());
-=======
 app.use('/Contactos', ContactosRuta());
 app.use('/mesas_x_menus', mesas_x_menu_Ruta());
->>>>>>> Stashed changes
 //============================================================
 //app.use('/tipdoc', tipdoc());//ruta para el servicio
 
 
-http.createServer(  app).listen(app.get('port'), function ( )
+http.createServer(app).listen(app.get('port'), function ( )
 {
     console.log('Servidor Express escuchando por el puerto ' + app.get('port'));
 });
