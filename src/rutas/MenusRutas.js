@@ -3,7 +3,7 @@ const router = express.Router();
 
 var MenusModelo = require('../modelos/MenusModelo');
 
-// Lista de nacionalidades válidas según tu catálogo universal (tipo 14)
+// Lista de nacionalidades válidas
 const nacionalidadesValidas = {
     1401: "Italiana",
     1402: "Mexicana",
@@ -15,18 +15,52 @@ const nacionalidadesValidas = {
     1408: "Internacional"
 };
 
-// Función para validar la nacionalidad
+// Lista de porciones válidas
+const porcionesValidas = {
+    1101: "Individual",
+    1102: "Para compartir",
+    1103: "Familiar"
+};
+
+// Lista de tipos de plato válidos
+const tiposPlatoValidos = {
+    901: "Entrada",
+    902: "Plato Fuerte",
+    903: "Postre",
+    904: "Bebida",
+    905: "Acompañamiento",
+    906: "Sopa"
+};
+
+// Lista de clases de plato válidas
+const clasesPlatoValidas = {
+    1001: "Vegetariano",
+    1002: "Vegano",
+    1003: "Sin gluten",
+    1004: "Sin lactosa",
+    1005: "Kosher",
+    1006: "Halal",
+    1007: "Estándar"
+};
+
+// Función para validar nacionalidad
 function validarNacionalidad(nacionalidad) {
     return nacionalidadesValidas.hasOwnProperty(nacionalidad);
 }
 
-// Mostrar lista válida
-function listaNacionalidades() {
-    let lista = "";
-    for (const [codigo, nombre] of Object.entries(nacionalidadesValidas)) {
-        lista += `${codigo} - ${nombre}\n`;
-    }
-    return lista;
+// Función para validar porciones
+function validarPorciones(porciones) {
+    return porcionesValidas.hasOwnProperty(porciones);
+}
+
+// Función para validar tipo de plato
+function validarTipoPlato(tipoPlato) {
+    return tiposPlatoValidos.hasOwnProperty(tipoPlato);
+}
+
+// Función para validar clase de plato
+function validarClasePlato(clasePlato) {
+    return clasesPlatoValidas.hasOwnProperty(clasePlato);
 }
 
 module.exports = function () {
@@ -54,9 +88,12 @@ module.exports = function () {
         });
     });
 
-    // Insertar nuevo menú con validación de nacionalidad
+    // Insertar nuevo menú con validación
     router.post('/', function (req, res) {
         const nacionalidad = parseInt(req.body.Nacionalidad);
+        const porciones = parseInt(req.body.Porciones);
+        const tipoPlato = parseInt(req.body.Tipo_Plato);
+        const clasePlato = parseInt(req.body.Clase_Plato);
 
         // Validar nacionalidad
         if (!validarNacionalidad(nacionalidad)) {
@@ -66,13 +103,37 @@ module.exports = function () {
             });
         }
 
+        // Validar porciones
+        if (!validarPorciones(porciones)) {
+            return res.status(400).json({
+                error: "Porciones inválidas. Debe ser uno de los siguientes códigos:",
+                codigos_validos: porcionesValidas
+            });
+        }
+
+        // Validar tipo de plato
+        if (!validarTipoPlato(tipoPlato)) {
+            return res.status(400).json({
+                error: "Tipo de plato inválido. Debe ser uno de los siguientes códigos:",
+                codigos_validos: tiposPlatoValidos
+            });
+        }
+
+        // Validar clase de plato
+        if (!validarClasePlato(clasePlato)) {
+            return res.status(400).json({
+                error: "Clase de plato inválida. Debe ser uno de los siguientes códigos:",
+                codigos_validos: clasesPlatoValidas
+            });
+        }
+
         const menuData = {
             Id_Menu: null,
             Descripcion: req.body.Descripcion,
             Nacionalidad: nacionalidad,
-            Porciones: req.body.Porciones,
-            Tipo_Plato: req.body.Tipo_Plato,
-            Clase_Plato: req.body.Clase_Plato
+            Porciones: porciones,
+            Tipo_Plato: tipoPlato,
+            Clase_Plato: clasePlato
         }
 
         MenusModelo.insertarMenu(menuData, function (error, resultado) {
@@ -84,9 +145,12 @@ module.exports = function () {
         });
     });
 
-    // Modificar menú existente con validación de nacionalidad
+    // Modificar menú existente con validación
     router.put('/', function (req, res) {
         const nacionalidad = parseInt(req.body.Nacionalidad);
+        const porciones = parseInt(req.body.Porciones);
+        const tipoPlato = parseInt(req.body.Tipo_Plato);
+        const clasePlato = parseInt(req.body.Clase_Plato);
 
         // Validar nacionalidad
         if (!validarNacionalidad(nacionalidad)) {
@@ -96,13 +160,37 @@ module.exports = function () {
             });
         }
 
+        // Validar porciones
+        if (!validarPorciones(porciones)) {
+            return res.status(400).json({
+                error: "Porciones inválidas. Debe ser uno de los siguientes códigos:",
+                codigos_validos: porcionesValidas
+            });
+        }
+
+        // Validar tipo de plato
+        if (!validarTipoPlato(tipoPlato)) {
+            return res.status(400).json({
+                error: "Tipo de plato inválido. Debe ser uno de los siguientes códigos:",
+                codigos_validos: tiposPlatoValidos
+            });
+        }
+
+        // Validar clase de plato
+        if (!validarClasePlato(clasePlato)) {
+            return res.status(400).json({
+                error: "Clase de plato inválida. Debe ser uno de los siguientes códigos:",
+                codigos_validos: clasesPlatoValidas
+            });
+        }
+
         const menuData = {
             Id_Menu: req.body.Id_Menu,
             Descripcion: req.body.Descripcion,
             Nacionalidad: nacionalidad,
-            Porciones: req.body.Porciones,
-            Tipo_Plato: req.body.Tipo_Plato,
-            Clase_Plato: req.body.Clase_Plato
+            Porciones: porciones,
+            Tipo_Plato: tipoPlato,
+            Clase_Plato: clasePlato
         }
 
         MenusModelo.modificarMenu(menuData, function (error, resultado) {
