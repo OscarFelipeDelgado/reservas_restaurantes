@@ -15,6 +15,9 @@ var ReservaModeloRutas = require('./src/rutas/ReservasRuta')
 
 var MenusModeloRutas = require('./src/rutas/MenusRutas')
 
+const MesasModelo = require('./src/modelos/MesasModelo');
+var MesasRuta = require('./src/rutas/MesasRuta');
+
 //var tipdoc = require('./src/Rutas/tipdocruta');//ruta
 
 var app = express(); //recibe un constructor
@@ -52,6 +55,7 @@ app.use('/CataUniversal', CataUnivRuta());
 app.use('/Personas', PersonasRuta());
 app.use('/Reservas', ReservaModeloRutas());
 app.use('/Menus', MenusModeloRutas());
+app.use('/Mesas', MesasRuta());
 //============================================================
 //app.use('/tipdoc', tipdoc());//ruta para el servicio
 
