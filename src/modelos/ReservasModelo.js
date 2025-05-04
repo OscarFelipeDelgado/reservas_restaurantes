@@ -51,13 +51,8 @@ ReservasModelo.modificarReserva = function (reservaData, callback) {
     if (connection) {
         var sql = "UPDATE reservas SET " +
             "Cantidad_Personas = " + connection.escape(reservaData.Cantidad_Personas) + ", " +
-            "Estado_Reserva = " + connection.escape(reservaData.Estado_Reserva) + ", " +
             "Fecha_Reserva = " + connection.escape(reservaData.Fecha_Reserva) + ", " +
             "Hora_Reserva = " + connection.escape(reservaData.Hora_Reserva) + ", " +
-            "Id_Cliente = " + connection.escape(reservaData.Id_Cliente) + ", " +
-            "Id_Menu_X_Mesa_X_Reserva = " + connection.escape(reservaData.Id_Menu_X_Mesa_X_Reserva) + ", " +
-            "Id_Mesa_X_Menu_X_Reserva = " + connection.escape(reservaData.Id_Mesa_X_Menu_X_Reserva) + ", " +
-            "Metodo_Pago = " + connection.escape(reservaData.Metodo_Pago) + ", " +
             "Notas = " + connection.escape(reservaData.Notas) +
             " WHERE Id_Reserva = " + connection.escape(reservaData.Id_Reserva) + ";";
 

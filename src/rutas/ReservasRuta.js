@@ -33,7 +33,7 @@ router.post('/', function (req, res) {
     const reservaData = {
         Id_Reserva: null,
         Id_Cliente: req.body.Id_Cliente, 
-        Id_Menu_X_Mesa_X_Reserva: req.body.Id_Menu_X_Mesa_X_Reserva, 
+        Id_Menu_X_Mesa: req.body.Id_Menu_X_Mesa, 
         Fecha_Reserva: req.body.Fecha_Reserva, 
         Hora_Reserva: req.body.Hora_Reserva, 
         Cantidad_Personas: req.body.Cantidad_Personas, 
@@ -52,7 +52,13 @@ router.post('/', function (req, res) {
 
 // Modificar reserva existente
 router.put('/', function (req, res) {
-    const reservaData = req.body;
+        const reservaData = {
+            Id_Reserva: req.body.Id_Reserva,
+            Fecha_Reserva: req.body.Fecha_Reserva, 
+            Hora_Reserva: req.body.Hora_Reserva, 
+            Cantidad_Personas: req.body.Cantidad_Personas, 
+            Notas: req.body.Notas
+    }
 
     ReservasModelo.modificarReserva(reservaData, function (error, resultado) {
         if (error) {
