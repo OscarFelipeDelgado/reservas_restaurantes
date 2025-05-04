@@ -4,7 +4,25 @@ const PersonasModelo = {};
 // Obtener todas las personas
 PersonasModelo.getPersonas = function (callback) {
     if (connection) {
-        const sql = "SELECT * FROM personas ORDER BY Primer_Nombre;";
+        const sql = `
+            SELECT 
+                p.Id_Persona,
+                td.Valor_Catalogo AS Tipo_Documento,
+                p.Num_Documento,
+                p.Primer_Nombre,
+                p.Segundo_Nombre,
+                p.Primer_Apellido,
+                p.Segundo_Apellido,
+                p.Fecha_Nacimiento,
+                ec.Valor_Catalogo AS Estado_Civil,
+                ep.Valor_Catalogo AS Eps_Persona
+
+            FROM personas p
+
+            LEFT JOIN catalogo_universal td ON p.Tipo_Documento = td.Id_Catalogo
+            LEFT JOIN catalogo_universal ec ON p.Estado_Civil = ec.Id_Catalogo
+            LEFT JOIN catalogo_universal ep ON p.Eps_Persona = ep.Id_Catalogo;
+        `;
         connection.query(sql, (error, rows) => {
             if (error) return callback(error, null);
             callback(null, rows);
