@@ -17,8 +17,8 @@ MesasModelo.getMesas = function (callback) {
             FROM mesas m
 
                 LEFT JOIN catalogo_universal u ON u.Id_Catalogo = m.Ubicacion
-                LEFT JOIN catalogo_universal em ON u.Id_Catalogo = m.Estado_Mesa
-                LEFT JOIN catalogo_universal tm ON u.Id_Catalogo = m.Tipo_Mesa
+                LEFT JOIN catalogo_universal em ON em.Id_Catalogo = m.Estado_Mesa
+                LEFT JOIN catalogo_universal tm ON tm.Id_Catalogo = m.Tipo_Mesa
 
             ORDER BY Id_Mesa ASC
         `;
