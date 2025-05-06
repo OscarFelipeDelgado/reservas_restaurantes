@@ -38,7 +38,25 @@ ReservasModelo.getReservas = function (callback) {
 // Obtener una reserva por ID
 ReservasModelo.getReservaById = function (idReserva, callback) {
     if (connection) {
-        var sql = "SELECT * FROM reservas WHERE Id_Reserva = " + connection.escape(idReserva) + ";";
+        var sql = `
+        SELECT 
+            r.Id_Reserva, 
+            r.Id_Cliente, 
+            r.Id_Menu_X_Mesa, 
+            r.Fecha_Reserva, 
+            r.Hora_Reserva, 
+            r.Cantidad_Personas, 
+            er.Valor_Catalogo AS Estado_Reserva, 
+            mp.Valor_Catalogo AS Metodo_Pago, 
+            r.Notas 
+                
+        FROM reservas r 
+
+        LEFT JOIN catalogo_universal er ON r.Estado_Reserva = er.Id_Catalogo
+        LEFT JOIN catalogo_universal mp ON r.Metodo_Pago = mp.Id_Catalogo
+
+        ORDER BY Fecha_Reserva DESC;
+        `; + connection.escape(idReserva) + ";";
 
         connection.query(sql, function (error, rows) {
             if (error) {

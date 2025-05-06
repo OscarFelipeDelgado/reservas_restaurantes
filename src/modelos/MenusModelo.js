@@ -1,11 +1,27 @@
 const connection = require('../conexion');
-
 var MenusModelo = {};
 
 // Obtener todos los menús
 MenusModelo.getMenus = function (callback) {
     if (connection) {
-        var sql = "SELECT * FROM menus ORDER BY Id_Menu;";
+        var sql = `
+        SELECT 
+		m.Id_Menu,
+        m.Descripcion,
+        na.Valor_Catalogo AS Nacionalidad ,
+        po.Valor_Catalogo AS Porciones,
+        ti.Valor_Catalogo AS Tipo_Plato,
+        cp.Valor_Catalogo AS Clase_Plato 
+
+        FROM menus m
+
+        LEFT JOIN catalogo_universal na ON m.Nacionalidad = na.Id_Catalogo
+        LEFT JOIN catalogo_universal po ON m.Porciones = po.Id_Catalogo
+        LEFT JOIN catalogo_universal ti ON m.Tipo_Plato = ti.Id_Catalogo
+        LEFT JOIN catalogo_universal cp ON m.Clase_Plato = cp.Id_Catalogo
+
+        ORDER BY Id_Menu`;
+        
         connection.query(sql, function (error, rows) {
             if (error) {
                 throw error;
