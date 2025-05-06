@@ -5,8 +5,22 @@ const MesasModelo = {};
 MesasModelo.getMesas = function (callback) {
     if (connection) {
         const sql = `
-            SELECT *
-            FROM mesas
+            SELECT 
+                m.Id_Mesa, 
+                m.Numero_Mesa, 
+                m.Capacidad, 
+                u.Valor_Catalogo AS Ubicacion, 
+                em.Valor_Catalogo AS Estado_Mesa, 
+                tm.Valor_Catalogo AS Tipo_Mesa, 
+                Notas 
+                
+            FROM mesas m
+
+                LEFT JOIN catalogo_universal u ON u.Id_Catalogo = m.Ubicacion
+                LEFT JOIN catalogo_universal em ON u.Id_Catalogo = m.Estado_Mesa
+                LEFT JOIN catalogo_universal tm ON u.Id_Catalogo = m.Tipo_Mesa
+
+            ORDER BY Id_Mesa ASC
         `;
         connection.query(sql, (error, rows) => {
             if (error) return callback(error, null);
