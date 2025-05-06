@@ -4,7 +4,17 @@ const ContactosModelo = {};
 // Obtener todos los contactos
 ContactosModelo.getContactos = function (callback) {
     if (connection) {
-        const sql = "SELECT * FROM contactos ORDER BY Id_Contacto;";
+        const sql = `
+        SELECT 
+        
+            c.Id_Contacto,
+            c.Id_Persona,
+            tc.Valor_Catalogo AS Tipo_Contacto,
+            c.Dato_Contacto
+
+        FROM contactos c 
+        LEFT JOIN catalogo_universal tc ON c.tipo_contacto = tc.Id_Catalogo;
+`;
         connection.query(sql, (error, rows) => {
             if (error) return callback(error, null);
             callback(null, rows);
