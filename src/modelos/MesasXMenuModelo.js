@@ -18,7 +18,7 @@ MesasXMenuModelo.getMesasXMenuByMenuId = function(menuId, callback) {
         const sql = "SELECT * FROM mesas_x_menus WHERE Id_Menu = ? ORDER BY Id_Mesa_X_Menu;";
         connection.query(sql, [menuId], (error, rows) => {
             if (error) return callback(error, null);
-            callback(null, rows);  // Retorna todas las mesas asociadas con ese menú
+            callback(null, rows);
         });
     }
 };
@@ -66,6 +66,28 @@ MesasXMenuModelo.eliminarMesaXMenu = function(id, callback) {
         connection.query(sql, [id], (error, result) => {
             if (error) return callback(error, null);
             callback(null, { msg: "Mesa eliminada correctamente" });
+        });
+    }
+};
+
+// Verificar si la mesa existe (por Id_Mesa)
+MesasXMenuModelo.existeMesa = function(idMesa, callback) {
+    if (connection) {
+        const sql = "SELECT 1 FROM mesas WHERE Id_Mesa = ? LIMIT 1";
+        connection.query(sql, [idMesa], (error, rows) => {
+            if (error) return callback(error, null);
+            callback(null, rows.length > 0); // true si existe
+        });
+    }
+};
+
+// Verificar si el menú existe (por Id_Menu)
+MesasXMenuModelo.existeMenu = function(idMenu, callback) {
+    if (connection) {
+        const sql = "SELECT 1 FROM menus WHERE Id_Menu = ? LIMIT 1";
+        connection.query(sql, [idMenu], (error, rows) => {
+            if (error) return callback(error, null);
+            callback(null, rows.length > 0); // true si existe
         });
     }
 };
