@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const PersonasModelo = require('../modelos/PersonasModelo');
+const { PersonasModelo } = require('../modelos/PersonasModelo');
 
 function validarPersona(data, requiereId = false) {
     const errores = [];
@@ -20,7 +20,6 @@ function validarPersona(data, requiereId = false) {
 }
 
 module.exports = function () {
-
     // GET todas las personas
     router.get("/", function (req, res) {
         PersonasModelo.getPersonas(function (error, data) {
@@ -43,7 +42,7 @@ module.exports = function () {
     });
 
     // POST nueva persona
-    router.post("/", function (req, res) {
+    router.post("/", async function (req, res) {
         const personaData = {
             Id_Persona: null,
             Tipo_Documento: req.body.Tipo_Documento,
@@ -61,29 +60,56 @@ module.exports = function () {
         if (errores.length > 0) {
             return res.status(400).json({
                 error: "Datos inválidos. Revisa los siguientes campos:",
-                campos: errores,
-                ejemplo_correcto: {
-                    "Tipo_Documento": 1,
-                    "Num_Documento": "1234567890",
-                    "Primer_Nombre": "Laura",
-                    "Segundo_Nombre": "Marcela",
-                    "Primer_Apellido": "Gómez",
-                    "Segundo_Apellido": null,
-                    "Fecha_Nacimiento": "1998-06-15",
-                    "Estado_Civil": 2,
-                    "Eps_Persona": 4
-                }
+                campos: errores
             });
         }
 
-        PersonasModelo.insertarPersona(personaData, function (error, data) {
-            if (data) res.status(200).json(data);
-            else res.status(500).json({ error: "Error al registrar persona" });
-        });
+        try {
+            const [tipoDocValido, epsValido, estadoCivilValido] = await Promise.all([
+                PersonasModelo.existeEnCatalogo(personaData.Tipo_Documento, 2),
+                PersonasModelo.existeEnCatalogo(personaData.Eps_Persona, 4),
+                personaData.Estado_Civil !== null
+                    ? PersonasModelo.existeEnCatalogo(personaData.Estado_Civil, 3)
+                    : Promise.resolve(true)
+            ]);
+
+            if (!tipoDocValido || !epsValido || !estadoCivilValido) {
+                const [tiposDoc, epsList, estadosCiviles] = await Promise.all([
+                    PersonasModelo.obtenerValoresCatalogo(2),
+                    PersonasModelo.obtenerValoresCatalogo(4),
+                    PersonasModelo.obtenerValoresCatalogo(3)
+                ]);
+
+                return res.status(400).json({
+                    error: "Uno o más campos no son válidos según el catálogo",
+                    campos_invalidos: {
+                        Tipo_Documento: tipoDocValido ? "válido" : "inválido",
+                        Eps_Persona: epsValido ? "válido" : "inválido",
+                        Estado_Civil: estadoCivilValido ? "válido" : "inválido"
+                    },
+                    valores_validos: {
+                        Tipo_Documento: tiposDoc,
+                        Eps_Persona: epsList,
+                        Estado_Civil: estadosCiviles
+                    }
+                });
+            }
+
+            PersonasModelo.insertarPersona(personaData, function (error, data) {
+                if (data) res.status(200).json(data);
+                else res.status(500).json({ error: "Error al registrar persona" });
+            });
+        } catch (error) {
+            console.error("Error en validación de catálogo:", error);
+            res.status(500).json({
+                error: "Error al validar catálogos",
+                detalle: error.message || error.toString() || "Error desconocido"
+            });
+        }
     });
 
     // PUT actualizar persona
-    router.put("/", function (req, res) {
+    router.put("/", async function (req, res) {
         const personaData = {
             Id_Persona: req.body.Id_Persona,
             Tipo_Documento: req.body.Tipo_Documento,
@@ -101,26 +127,52 @@ module.exports = function () {
         if (errores.length > 0) {
             return res.status(400).json({
                 error: "Datos inválidos para actualizar. Revisa los siguientes campos:",
-                campos: errores,
-                ejemplo_correcto: {
-                    "Id_Persona": 7,
-                    "Tipo_Documento": 2,
-                    "Num_Documento": "9876543210",
-                    "Primer_Nombre": "Luis",
-                    "Segundo_Nombre": null,
-                    "Primer_Apellido": "Pérez",
-                    "Segundo_Apellido": "Ramírez",
-                    "Fecha_Nacimiento": "1992-12-30",
-                    "Estado_Civil": null,
-                    "Eps_Persona": 1
-                }
+                campos: errores
             });
         }
 
-        PersonasModelo.modificarPersona(personaData, function (error, data) {
-            if (data) res.status(200).json(data);
-            else res.status(500).json({ error: "Error al actualizar persona" });
-        });
+        try {
+            const [tipoDocValido, epsValido, estadoCivilValido] = await Promise.all([
+                PersonasModelo.existeEnCatalogo(personaData.Tipo_Documento, 2),
+                PersonasModelo.existeEnCatalogo(personaData.Eps_Persona, 4),
+                personaData.Estado_Civil !== null
+                    ? PersonasModelo.existeEnCatalogo(personaData.Estado_Civil, 3)
+                    : Promise.resolve(true)
+            ]);
+
+            if (!tipoDocValido || !epsValido || !estadoCivilValido) {
+                const [tiposDoc, epsList, estadosCiviles] = await Promise.all([
+                    PersonasModelo.obtenerValoresCatalogo(2),
+                    PersonasModelo.obtenerValoresCatalogo(4),
+                    PersonasModelo.obtenerValoresCatalogo(3)
+                ]);
+
+                return res.status(400).json({
+                    error: "Uno o más campos no son válidos según el catálogo",
+                    campos_invalidos: {
+                        Tipo_Documento: tipoDocValido ? "válido" : "inválido",
+                        Eps_Persona: epsValido ? "válido" : "inválido",
+                        Estado_Civil: estadoCivilValido ? "válido" : "inválido"
+                    },
+                    valores_validos: {
+                        Tipo_Documento: tiposDoc,
+                        Eps_Persona: epsList,
+                        Estado_Civil: estadosCiviles
+                    }
+                });
+            }
+
+            PersonasModelo.modificarPersona(personaData, function (error, data) {
+                if (data) res.status(200).json(data);
+                else res.status(500).json({ error: "Error al actualizar persona" });
+            });
+        } catch (error) {
+            console.error("Error en validación de catálogo:", error);
+            res.status(500).json({
+                error: "Error al validar catálogos",
+                detalle: error.message || error.toString() || "Error desconocido"
+            });
+        }
     });
 
     // DELETE persona

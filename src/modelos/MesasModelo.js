@@ -13,13 +13,10 @@ MesasModelo.getMesas = function (callback) {
                 em.Valor_Catalogo AS Estado_Mesa, 
                 tm.Valor_Catalogo AS Tipo_Mesa, 
                 Notas 
-                
             FROM mesas m
-
-                LEFT JOIN catalogo_universal u ON u.Id_Catalogo = m.Ubicacion
-                LEFT JOIN catalogo_universal em ON em.Id_Catalogo = m.Estado_Mesa
-                LEFT JOIN catalogo_universal tm ON tm.Id_Catalogo = m.Tipo_Mesa
-
+            LEFT JOIN catalogo_universal u ON u.Id_Catalogo = m.Ubicacion
+            LEFT JOIN catalogo_universal em ON em.Id_Catalogo = m.Estado_Mesa
+            LEFT JOIN catalogo_universal tm ON tm.Id_Catalogo = m.Tipo_Mesa
             ORDER BY Id_Mesa ASC
         `;
         connection.query(sql, (error, rows) => {
@@ -67,7 +64,6 @@ MesasModelo.modificarMesa = function (mesaData, callback) {
                 Notas = ?
             WHERE Id_Mesa = ?
         `;
-
         const values = [
             mesaData.Numero_Mesa,
             mesaData.Capacidad,
@@ -94,6 +90,17 @@ MesasModelo.eliminarMesa = function (id, callback) {
             callback(null, { msg: "Mesa eliminada correctamente" });
         });
     }
+};
+
+// Obtener valores de catálogo por tipo
+MesasModelo.obtenerValoresCatalogo = async function (tipoCatalogo) {
+    const query = "SELECT id_catalogo, valor_catalogo FROM catalogo_universal WHERE tipo_catalogo = ?";
+    return new Promise((resolve, reject) => {
+        connection.query(query, [tipoCatalogo], (err, results) => {
+            if (err) reject(err);
+            else resolve(results);
+        });
+    });
 };
 
 module.exports = MesasModelo;

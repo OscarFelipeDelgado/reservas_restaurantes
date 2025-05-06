@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const MesasModelo = require('../modelos/MesasModelo');
 
+// Función de validación de mesa
 function validarMesa(data, requiereId = false) {
     const errores = [];
 
@@ -16,8 +17,25 @@ function validarMesa(data, requiereId = false) {
     return errores;
 }
 
-module.exports = function () {
+// Función para obtener opciones de catálogo
+async function obtenerOpcionesCatalogo(tipoCatalogo) {
+    try {
+        const catalogo = await MesasModelo.obtenerValoresCatalogo(tipoCatalogo);
+        return catalogo; // Retorna las opciones disponibles en ese catálogo
+    } catch (error) {
+        console.error("Error al obtener opciones del catálogo:", error);
+        throw new Error("Error al obtener las opciones del catálogo");
+    }
+}
 
+// Función para validar si un valor está en el catálogo
+async function checkCatalogo(value, tipoCatalogo) {
+    const catalogo = await obtenerOpcionesCatalogo(tipoCatalogo);
+    const validado = catalogo.some(item => item.id_catalogo === value);
+    return validado ? null : { valido: false, catalogo: catalogo };
+}
+
+module.exports = function () {
     router.get("/", function (req, res) {
         MesasModelo.getMesas(function (error, data) {
             if (data && data.length > 0) res.status(200).json(data);
@@ -37,7 +55,7 @@ module.exports = function () {
         }
     });
 
-    router.post("/", function (req, res) {
+    router.post("/", async function (req, res) {
         const mesaData = {
             Numero_Mesa: req.body.Numero_Mesa,
             Capacidad: req.body.Capacidad,
@@ -63,13 +81,51 @@ module.exports = function () {
             });
         }
 
+        // Validación de los valores de catálogo
+        try {
+            const erroresCatalogo = {};
+
+            const errorUbicacion = await checkCatalogo(mesaData.Ubicacion, 6);
+            if (errorUbicacion && !errorUbicacion.valido) {
+                erroresCatalogo.Ubicacion = {
+                    valido: "inválido",
+                    valores_validos: errorUbicacion.catalogo
+                };
+            }
+
+            const errorEstadoMesa = await checkCatalogo(mesaData.Estado_Mesa, 7);
+            if (errorEstadoMesa && !errorEstadoMesa.valido) {
+                erroresCatalogo.Estado_Mesa = {
+                    valido: "inválido",
+                    valores_validos: errorEstadoMesa.catalogo
+                };
+            }
+
+            const errorTipoMesa = await checkCatalogo(mesaData.Tipo_Mesa, 8);
+            if (errorTipoMesa && !errorTipoMesa.valido) {
+                erroresCatalogo.Tipo_Mesa = {
+                    valido: "inválido",
+                    valores_validos: errorTipoMesa.catalogo
+                };
+            }
+
+            if (Object.keys(erroresCatalogo).length > 0) {
+                return res.status(400).json({
+                    error: "Uno o más campos no son válidos según el catálogo",
+                    campos_invalidos: erroresCatalogo
+                });
+            }
+        } catch (err) {
+            return res.status(500).json({ error: "Error al validar los catálogos", detalles: err.message });
+        }
+
         MesasModelo.insertarMesa(mesaData, function (error, data) {
             if (data) res.status(200).json(data);
             else res.status(500).json({ error: "Error al registrar mesa" });
         });
     });
 
-    router.put("/", function (req, res) {
+    router.put("/", async function (req, res) {
         const mesaData = {
             Id_Mesa: req.body.Id_Mesa,
             Numero_Mesa: req.body.Numero_Mesa,
@@ -95,6 +151,44 @@ module.exports = function () {
                     "Notas": "Actualizada con nueva ubicación"
                 }
             });
+        }
+
+        // Validación de los valores de catálogo
+        try {
+            const erroresCatalogo = {};
+
+            const errorUbicacion = await checkCatalogo(mesaData.Ubicacion, 6);
+            if (errorUbicacion && !errorUbicacion.valido) {
+                erroresCatalogo.Ubicacion = {
+                    valido: "inválido",
+                    valores_validos: errorUbicacion.catalogo
+                };
+            }
+
+            const errorEstadoMesa = await checkCatalogo(mesaData.Estado_Mesa, 7);
+            if (errorEstadoMesa && !errorEstadoMesa.valido) {
+                erroresCatalogo.Estado_Mesa = {
+                    valido: "inválido",
+                    valores_validos: errorEstadoMesa.catalogo
+                };
+            }
+
+            const errorTipoMesa = await checkCatalogo(mesaData.Tipo_Mesa, 8);
+            if (errorTipoMesa && !errorTipoMesa.valido) {
+                erroresCatalogo.Tipo_Mesa = {
+                    valido: "inválido",
+                    valores_validos: errorTipoMesa.catalogo
+                };
+            }
+
+            if (Object.keys(erroresCatalogo).length > 0) {
+                return res.status(400).json({
+                    error: "Uno o más campos no son válidos según el catálogo",
+                    campos_invalidos: erroresCatalogo
+                });
+            }
+        } catch (err) {
+            return res.status(500).json({ error: "Error al validar los catálogos", detalles: err.message });
         }
 
         MesasModelo.modificarMesa(mesaData, function (error, data) {
