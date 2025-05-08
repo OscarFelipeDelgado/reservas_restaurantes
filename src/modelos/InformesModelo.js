@@ -55,7 +55,7 @@ InformesModelo.getInformeReservas1 = function ({ fecha_inicio, fecha_fin, nombre
 InformesModelo.getInformeReservas2 = function ({ fecha_inicio, fecha_fin, plato }, callback) {
     if (connection) {
         let sql = `
-            SELECT 
+            SELECT
                 r.Id_Reserva,
                 r.Fecha_Reserva,
                 r.Hora_Reserva,
@@ -63,15 +63,23 @@ InformesModelo.getInformeReservas2 = function ({ fecha_inicio, fecha_fin, plato 
                 er.Valor_Catalogo AS Estado_Reserva,
                 mp.Valor_Catalogo AS Metodo_Pago,
                 r.Notas,
-                m.Descripcion AS Nombre_Plato,
-                m.Nacionalidad,
-                m.Tipo_Plato,
-                m.Clase_Plato
+                m.Descripcion AS Plato,
+                n.Valor_Catalogo AS Nacionalidad,
+                tp.Valor_Catalogo AS Tipo_Plato,
+                cp.Valor_Catalogo AS Clase_Plato
+                
             FROM reservas r
-            JOIN menu_x_mesa mxm ON r.Id_Menu_X_Mesa = mxm.Id_Menu_X_Mesa
+
+            JOIN mesas_x_menus mxm ON r.Id_Menu_X_Mesa = mxm.Id_Mesa_X_Menu
             JOIN menus m ON mxm.Id_Menu = m.Id_Menu
+
             LEFT JOIN catalogo_universal er ON r.Estado_Reserva = er.Id_Catalogo
             LEFT JOIN catalogo_universal mp ON r.Metodo_Pago = mp.Id_Catalogo
+
+            LEFT JOIN catalogo_universal n ON m.Nacionalidad = n.Id_Catalogo
+            LEFT JOIN catalogo_universal tp ON m.Tipo_Plato = tp.Id_Catalogo
+            LEFT JOIN catalogo_universal cp ON m.Clase_Plato = cp.Id_Catalogo
+
             WHERE r.Fecha_Reserva BETWEEN ? AND ?
         `;
 
