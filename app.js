@@ -14,6 +14,7 @@ var PersonasRuta = require('./src/rutas/PersonasRuta');
 var ReservaModeloRutas = require('./src/rutas/ReservasRuta')
 
 var MenusModeloRutas = require('./src/rutas/MenusRutas')
+
 const ContactosModelo = require('./src/modelos/ContactosModelo');
 var ContactosRuta = require('./src/rutas/ContactosRuta');
 
@@ -22,6 +23,8 @@ var MesasXMenuRuta = require('./src/rutas/MesasXMenuRuta');
 
 const MesasModelo = require('./src/modelos/MesasModelo');
 var MesasRuta = require('./src/rutas/MesasRuta');
+
+const InformesRuta = require('./src/rutas/InformesRuta');
 
 //var tipdoc = require('./src/Rutas/tipdocruta');//ruta
 
@@ -63,6 +66,7 @@ app.use('/Menus', MenusModeloRutas());
 app.use('/Mesas', MesasRuta());
 app.use('/Contactos', ContactosRuta());
 app.use('/MesasXMenu', MesasXMenuRuta());
+app.use('/Informes', InformesRuta);
 //============================================================
 //app.use('/tipdoc', tipdoc());//ruta para el servicio
 

@@ -36,7 +36,7 @@ ReservasModelo.getReservas = function (callback) {
 }
 
 // Obtener una reserva por ID
-ReservasModelo.getReservaById = function (idReserva, callback) {
+ReservasModelo.getReservaByIdJoin = function (idReserva, callback) {
     if (connection) {
         var sql = `
         SELECT 
@@ -55,6 +55,8 @@ ReservasModelo.getReservaById = function (idReserva, callback) {
         LEFT JOIN catalogo_universal er ON r.Estado_Reserva = er.Id_Catalogo
         LEFT JOIN catalogo_universal mp ON r.Metodo_Pago = mp.Id_Catalogo
 
+        WHERE Id_Reserva = idReserva
+
         ORDER BY Fecha_Reserva DESC;
         `; + connection.escape(idReserva) + ";";
 
@@ -67,6 +69,17 @@ ReservasModelo.getReservaById = function (idReserva, callback) {
         });
     }
 }
+
+ReservasModelo.getReservaById = function (id, callback) {
+    if (connection) {
+        const sql = "SELECT * FROM reservas WHERE Id_Reserva = ?";
+        connection.query(sql, [id], (error, rows) => {
+            if (error) return callback(error, null);
+            callback(null, rows);
+        });
+    }
+};
+
 // Insertar nueva reserva
 ReservasModelo.insertarReserva = function (reservaData, callback) {
     if (connection) {

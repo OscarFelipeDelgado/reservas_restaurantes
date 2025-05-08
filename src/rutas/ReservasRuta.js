@@ -57,6 +57,19 @@ module.exports = function() {
         });
     });
 
+    // Obtener reserva por ID JOIN
+    router.get('/Join/:idReserva', function (req, res) {
+        const id = req.params.id;
+
+        ReservasModelo.getReservaByIdJoin(idReserva, function (error, data) {
+            if (error) {
+                res.status(500).json({ error: 'Error al obtener la reserva' });
+            } else {
+                res.json(data);
+            }
+        });
+    });
+
     // Insertar nueva reserva
     router.post('/', function (req, res) {
         const estadoReserva = parseInt(req.body.Estado_Reserva);
