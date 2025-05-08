@@ -59,7 +59,7 @@ module.exports = function() {
 
     // Obtener reserva por ID JOIN
     router.get('/Join/:idReserva', function (req, res) {
-        const id = req.params.id;
+        const idReserva = req.params.idReserva;
 
         ReservasModelo.getReservaByIdJoin(idReserva, function (error, data) {
             if (error) {

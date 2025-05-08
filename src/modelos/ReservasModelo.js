@@ -55,7 +55,7 @@ ReservasModelo.getReservaByIdJoin = function (idReserva, callback) {
         LEFT JOIN catalogo_universal er ON r.Estado_Reserva = er.Id_Catalogo
         LEFT JOIN catalogo_universal mp ON r.Metodo_Pago = mp.Id_Catalogo
 
-        WHERE Id_Reserva = idReserva
+        WHERE Id_Reserva = ${connection.escape(idReserva)}
 
         ORDER BY Fecha_Reserva DESC;
         `; + connection.escape(idReserva) + ";";
