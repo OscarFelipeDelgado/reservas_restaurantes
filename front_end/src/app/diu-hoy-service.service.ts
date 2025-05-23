@@ -46,7 +46,7 @@ export class DiuHoyService
 
   getCatalogoTotal(): Promise<any> 
   {
-    return axios.get(this.Url + "/Universal");
+    return axios.get(this.Url + "/CataUniversal");
   }
 
   //-------------------------------------------------------------
@@ -54,7 +54,7 @@ export class DiuHoyService
 
    getlListCatologos(): Promise<any> 
    {
-      return axios.get(this.Url + "/Universal/1");
+      return axios.get(this.Url + "/CataUniversal/1");
 
    }
 
@@ -63,7 +63,7 @@ export class DiuHoyService
 
    getlListCatologoEsp(tipcat: any): Promise<any> 
    {
-      return axios.get(this.Url + "/Universal"+ tipcat);
+      return axios.get(this.Url + "/CataUniversal"+ tipcat);
 
    }
    
