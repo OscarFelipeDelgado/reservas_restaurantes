@@ -1,34 +1,21 @@
-var mysql = require('mysql');
+const mysql = require('mysql');
+const settings = require('./config.json');
 
-var settings = require('./config.json');
+let connection;
 
-var connection;
-
-
-function connectDatabase()
-{
-    if(!connection)
-    {
+function connectDatabase() {
+    if (!connection) {
         connection = mysql.createConnection(settings);
 
-        connection.connect(function(err)
-        {
-            if(!err)
-            {
+        connection.connect(function (err) {
+            if (!err) {
                 console.log('Base de Datos Conectada');
+            } else {
+                console.error('Error en la conexión con la Base de Datos:', err.message);
             }
-            else
-            {
-                console.log('Error en la conexión con la Base de Datos');
-            }   
         });
     }
     return connection;
 }
 
-
-module.exports = connectDatabase();
-
-
-//exporta la conexión
 module.exports = connectDatabase();

@@ -1,8 +1,9 @@
 {
-
     "host": "localhost",
     "user": "root",
     "password": "",
-    "database": "reservas_database"
-    
+    "database": "reservas_database"   
 }
+
+
+
