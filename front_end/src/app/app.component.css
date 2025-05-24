@@ -19,3 +19,8 @@
   z-index: -1;
   pointer-events: none;  /* evitar que interfiera con clicks */
 }
+
+* {
+  font-family: 'Montserrat', sans-serif;
+  /* el resto de tus estilos */
+}

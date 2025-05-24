@@ -1,6 +1,5 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #fdfbfb, #ebedee);
+  background: linear-gradient(to right, rgba(253, 251, 251, 0.8), rgba(235, 237, 238, 0.8));
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -46,22 +45,22 @@ body, html {
 }
 
 .dir {
-  background-color: #e3f2fd;
+  background-color: rgba(227, 242, 253, 0.7); /* #e3f2fd con transparencia */
   border: 2px solid #2196f3;
 }
 
 .listaU {
-  background-color: #fff9c4;
+  background-color: rgba(255, 249, 196, 0.7); /* #fff9c4 con transparencia */
   border: 2px solid #fbc02d;
 }
 
 .tipo {
-  background-color: #fce4ec;
+  background-color: rgba(252, 228, 236, 0.7); /* #fce4ec con transparencia */
   border: 2px solid #ec407a;
 }
 
 button {
-  background-color: #2196f3;
+  background-color: rgba(33, 150, 243, 0.8); /* #2196f3 con opacidad */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -73,8 +72,9 @@ button {
 }
 
 button:hover {
-  background-color: #1976d2;
+  background-color: rgba(25, 118, 210, 0.9); /* #1976d2 con más opacidad */
 }
+
 
 select {
   padding: 8px;
@@ -103,6 +103,18 @@ th, td {
 
 tr:nth-child(even) {
   background-color: #fef9e7;
+}
+
+a {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 12px 24px;
+  background-color: #2ecc71;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 /* Contenedor con scroll interno para la tabla en .listaU */
