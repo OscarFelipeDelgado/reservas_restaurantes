@@ -13,10 +13,9 @@ body, html {
   overflow-y: auto;
 }
 
-
 .container {
   padding: 30px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.7); /* Más transparente */
   margin: 30px auto;
   width: 90%;
   max-width: 1000px;
@@ -104,4 +103,12 @@ th, td {
 
 tr:nth-child(even) {
   background-color: #fef9e7;
+}
+
+/* Contenedor con scroll interno para la tabla en .listaU */
+.tabla-scroll {
+  max-height: 300px; /* altura máxima con scroll */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
