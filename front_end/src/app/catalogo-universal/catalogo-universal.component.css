@@ -1,6 +1,5 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #fdfbfb, #ebedee);
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -8,73 +7,65 @@ body {
   padding: 0;
 }
 
-body, html {
-  height: auto;
-  overflow-y: auto;
-}
-
-
 .container {
   padding: 30px;
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: rgba(255, 255, 255, 0.8);
   margin: 30px auto;
-  width: 90%;
-  max-width: 1000px;
+  width: 80%;
   border-radius: 20px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
 }
 
-.imagen {
+div.imagen {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
-.imagen h1 {
-  font-size: 2.2em;
+div.imagen h1 {
+  font-size: 2em;
   margin-bottom: 10px;
-  color: #2c3e50;
 }
 
-.dir,
-.listaU,
-.tipo {
+div.dir,
+div.listaU,
+div.tipo {
   margin: 30px auto;
   padding: 20px;
   border-radius: 15px;
   text-align: center;
-  max-width: 700px;
+  max-width: 600px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.dir {
-  background-color: #e3f2fd;
-  border: 2px solid #2196f3;
+div.dir {
+  background-color: #e8f4fc;
+  border: 2px solid #4a90e2;
 }
 
-.listaU {
+div.listaU {
   background-color: #fff9c4;
   border: 2px solid #fbc02d;
 }
 
-.tipo {
-  background-color: #fce4ec;
+div.tipo {
+  background-color: #f8bbd0;
   border: 2px solid #ec407a;
 }
 
 button {
-  background-color: #2196f3;
+  background-color: #4a90e2;
   color: white;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 15px;
   border-radius: 8px;
   margin: 5px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #1976d2;
+  background-color: #357ab8;
 }
 
 select {
@@ -82,7 +73,6 @@ select {
   border-radius: 5px;
   border: 1px solid #ccc;
   margin-top: 10px;
-  font-size: 15px;
 }
 
 table {
@@ -99,7 +89,6 @@ thead {
 th, td {
   padding: 10px;
   border: 1px solid #ccc;
-  text-align: center;
 }
 
 tr:nth-child(even) {
