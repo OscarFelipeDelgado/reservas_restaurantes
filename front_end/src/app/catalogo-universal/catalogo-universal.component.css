@@ -1,5 +1,6 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #fdfbfb, #ebedee);
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
@@ -7,65 +8,72 @@ body {
   padding: 0;
 }
 
+body, html {
+  height: auto;
+  overflow-y: auto;
+}
+
 .container {
   padding: 30px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.7); /* Más transparente */
   margin: 30px auto;
-  width: 80%;
+  width: 90%;
+  max-width: 1000px;
   border-radius: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-div.imagen {
+.imagen {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-div.imagen h1 {
-  font-size: 2em;
+.imagen h1 {
+  font-size: 2.2em;
   margin-bottom: 10px;
+  color: #2c3e50;
 }
 
-div.dir,
-div.listaU,
-div.tipo {
+.dir,
+.listaU,
+.tipo {
   margin: 30px auto;
   padding: 20px;
   border-radius: 15px;
   text-align: center;
-  max-width: 600px;
+  max-width: 700px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-div.dir {
-  background-color: #e8f4fc;
-  border: 2px solid #4a90e2;
+.dir {
+  background-color: #e3f2fd;
+  border: 2px solid #2196f3;
 }
 
-div.listaU {
+.listaU {
   background-color: #fff9c4;
   border: 2px solid #fbc02d;
 }
 
-div.tipo {
-  background-color: #f8bbd0;
+.tipo {
+  background-color: #fce4ec;
   border: 2px solid #ec407a;
 }
 
 button {
-  background-color: #4a90e2;
+  background-color: #2196f3;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 10px 20px;
   border-radius: 8px;
   margin: 5px;
   cursor: pointer;
   font-weight: bold;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #357ab8;
+  background-color: #1976d2;
 }
 
 select {
@@ -73,6 +81,7 @@ select {
   border-radius: 5px;
   border: 1px solid #ccc;
   margin-top: 10px;
+  font-size: 15px;
 }
 
 table {
@@ -89,8 +98,17 @@ thead {
 th, td {
   padding: 10px;
   border: 1px solid #ccc;
+  text-align: center;
 }
 
 tr:nth-child(even) {
   background-color: #fef9e7;
+}
+
+/* Contenedor con scroll interno para la tabla en .listaU */
+.tabla-scroll {
+  max-height: 300px; /* altura máxima con scroll */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
 }
