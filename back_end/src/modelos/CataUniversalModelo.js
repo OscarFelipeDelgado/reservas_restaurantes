@@ -8,7 +8,14 @@ CataUniversalModelo.getCatalogoUsT = function ( callback)
 {
     if(connection)
     {
-        var sql = "SELECT `Id_Catalogo`, `Valor_Catalogo`, `Tipo_Catalogo` FROM `catalogo_universal`ORDER BY `Valor_Catalogo`;";
+        var sql =   
+                    "SELECT  Cata.`Id_Catalogo`, "+
+                            "Cata.`Valor_Catalogo`,  "+
+                            "Tipo.`Valor_Catalogo` AS Tipo_Catalogo "+
+                            
+                    "FROM `catalogo_universal` AS Cata "+
+                       "INNER JOIN `catalogo_universal` AS Tipo ON Cata.`Tipo_Catalogo` = Tipo.`Id_Catalogo`" + 
+                       "ORDER BY `Valor_Catalogo`;";
  
         connection.query(sql, function (error, rows)
         {
