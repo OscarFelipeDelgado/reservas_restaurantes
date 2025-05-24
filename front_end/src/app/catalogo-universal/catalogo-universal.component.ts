@@ -13,7 +13,7 @@ import { DiuHoyService } from '../diu-hoy-service.service';
 })
 export class CatalogoUniversalComponent implements OnInit {
 
-  title = "MANEJO DE CATALOGO UNIVERSAL";
+  title = "CATÁLOGO UNIVERSAL";
 
   // Listado general
   tituloCataUniLista = "";
