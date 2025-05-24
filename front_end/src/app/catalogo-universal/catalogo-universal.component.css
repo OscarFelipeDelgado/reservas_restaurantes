@@ -45,18 +45,15 @@ body, html {
 }
 
 .dir {
-  background-color: rgba(227, 242, 253, 0.7); /* #e3f2fd con transparencia */
-  border: 2px solid #2196f3;
+  background-color: rgba(227, 242, 253, 0.3); /* #e3f2fd con transparencia */
 }
 
 .listaU {
   background-color: rgba(255, 249, 196, 0.7); /* #fff9c4 con transparencia */
-  border: 2px solid #fbc02d;
 }
 
 .tipo {
   background-color: rgba(252, 228, 236, 0.7); /* #fce4ec con transparencia */
-  border: 2px solid #ec407a;
 }
 
 button {
@@ -92,7 +89,7 @@ table {
 }
 
 thead {
-  background-color: #ffeb3b;
+  background-color: rgba(255, 238, 1, 0.5); /* #1976d2 con más opacidad */
 }
 
 th, td {
