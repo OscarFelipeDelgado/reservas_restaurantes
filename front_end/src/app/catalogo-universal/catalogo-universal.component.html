@@ -11,7 +11,7 @@
     <h3><a routerLink="/MenuInicio">VOLVER AL MENÚ INICIAL</a></h3>
   </div>
 
-<!--   <!-- Sección de todos los catálogos 
+  <!-- Sección de todos los catálogos -->
   <div class="listaU">
     <h2>Todos los Catálogos</h2>
 
@@ -38,7 +38,6 @@
       </table>
     </div>
   </div>
-   -->
   
   <!-- Sección de todos los catálogos -->
 <div class="listaU">
@@ -82,8 +81,8 @@
       <label for="CatCatalogofiltro">Tipos de Catálogos</label><br>
       <select formControlName="CatCatalogofiltro" (click)="ListarTiposCatalogos()">
         <option value="">Seleccione un tipo</option>
-        <option *ngFor="let Tip of ListaTipos" [value]="Tip.IdCataUniv">
-          {{ Tip.Denominacion }}
+        <option *ngFor="let Tip of ListaTipos" [value]="Tip.Id_Catalogo">
+          {{ Tip.Valor_Catalogo }}
         </option>
       </select>
 
@@ -104,9 +103,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let Tipo of CataUniTipo">
-              <td>{{ Tipo.IdCataUniv }}</td>
-              <td>{{ Tipo.Denominacion }}</td>
-              <td>{{ Tipo.TipoCatalogo }}</td>
+              <td>{{ Tipo.Id_Catalogo }}</td>
+              <td>{{ Tipo.Valor_Catalogo }}</td>
+              <td>{{ Tipo.Tipo_Catalogo }}</td>
             </tr>
           </tbody>
         </table>
