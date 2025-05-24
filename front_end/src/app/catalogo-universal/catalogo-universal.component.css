@@ -18,7 +18,7 @@ body, html {
   margin: 30px auto;
   width: 90%;
   max-width: 1000px;
-  border-radius: 20px;
+  border-radius: 15px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
@@ -33,7 +33,6 @@ body, html {
   color: #2c3e50;
 }
 
-.dir,
 .listaU,
 .tipo {
   margin: 30px auto;
@@ -45,7 +44,14 @@ body, html {
 }
 
 .dir {
-  background-color: rgba(227, 242, 253, 0.3); /* #e3f2fd con transparencia */
+  background-color: rgba(0, 0, 0, 0); /* #e3f2fd con transparencia */
+  margin: 10px auto;
+  padding-inline: 20px;
+  padding-block: 1px;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 700px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .listaU {
