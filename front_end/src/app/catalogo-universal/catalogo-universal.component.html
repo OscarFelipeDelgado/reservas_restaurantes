@@ -39,40 +39,6 @@
     </div>
   </div>
   
-  <!-- Sección de todos los catálogos -->
-<div class="listaU">
-  <h2>Todos los Catálogos</h2>
-
-  <button (click)="consultaCatalogosTotales()" style="margin-right: 30px">Listar todos los Catálogos</button>
-  <button (click)="LimpiarLista1()">Limpiar todos los Catálogos</button>
-
-  <div *ngIf="controlLista1 && CataUniT.length > 0">
-    <h2>{{ tituloCataUniLista }}</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Denominación</th>
-          <th>Tipo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let catu of CataUniT">
-          <td>{{ catu.Id_Catalogo }}</td>
-          <td>{{ catu.Valor_Catalogo }}</td>
-          <td>{{ catu.Tipo_Catalogo }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Mensaje si no hay datos -->
-  <div *ngIf="controlLista1 && CataUniT.length === 0">
-    <p>No se encontraron catálogos.</p>
-  </div>
-</div>
-
-
   <!-- Sección de un tipo de catálogo -->
   <div class="tipo">
     <h2>Mostramos un Tipo de Catálogo:</h2>

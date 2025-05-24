@@ -53,7 +53,7 @@ export class CatalogoUniversalComponent implements OnInit {
       console.log("Datos recibidos:", data);
       this.CataUniT = data.data;
       this.tituloCataUniLista = "LISTA DE TODOS LOS CATALOGOS";
-      this.tablacatalogosstotales = ["Id", "Denominación", "LlaveForanea"];
+      this.tablacatalogosstotales = ["Id", "Denominación", "Tipo Catálogo"];
       this.controlLista1 = true;
     }).catch(error => console.error("Error en getCatalogoTotal:", error));
   }
