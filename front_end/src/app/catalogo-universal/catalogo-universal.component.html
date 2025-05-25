@@ -48,11 +48,14 @@
 
     <form [formGroup]="CBCatalogoCatalogo">
       <label for="CatCatalogofiltro">Tipos de Catálogos</label><br>
+
       <select formControlName="CatCatalogofiltro" (click)="ListarTiposCatalogos()">
+      
         <option value="">Seleccione un tipo</option>
         <option *ngFor="let Tip of ListaTipos" [value]="Tip.Id_Catalogo">
           {{ Tip.Valor_Catalogo }}
         </option>
+      
       </select>
 
       <br><br>
@@ -67,14 +70,12 @@
             <tr>
               <th>{{ tablaTipoCatalogo[0] }}</th>
                <th>{{ tablaTipoCatalogo[1] }}</th>
-              <th>{{ tablaTipoCatalogo[2] }}</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let Tipo of CataUniTipo">
               <td>{{ Tipo.Id_Catalogo }}</td>
               <td>{{ Tipo.Valor_Catalogo }}</td>
-              <td>{{ Tipo.Tipo_Catalogo }}</td>
             </tr>
           </tbody>
         </table>
