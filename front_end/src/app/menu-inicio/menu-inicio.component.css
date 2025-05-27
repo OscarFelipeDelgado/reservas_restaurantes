@@ -1,15 +1,15 @@
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction:row;
   /* Cambiar justify-content a flex-start para que los botones se apilen sin mucho espacio entre */
   justify-content: flex-start; 
   text-align: center;
   padding: 20px 10px;
-  max-width: 700px;
+  max-width: 80%;
   min-height: 500px; /* Opcional: mínimo alto para que no quede muy pequeño */
   margin: 1px auto 1px;
   background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
+  border-radius: 10px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 0px solid #9b3830; 
 }
@@ -17,11 +17,12 @@
 
 
 header {
+  max-width: 70%;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;  
-  padding-top: 0;  /* menos espacio arriba */
+  padding-top: 30px;  /* menos espacio arriba */
   gap: 10px;
   position: relative;
 }
@@ -29,7 +30,7 @@ header {
 .imagen {
   align-self: flex-start;  /* logo a la izquierda */
   margin-top: -20px;       /* sube el logo */
-  margin-bottom: 40px;    /* menos espacio abajo del logo */
+  margin-bottom: 60px;    /* menos espacio abajo del logo */
 }
 
 .imagen img {
@@ -54,33 +55,11 @@ section h3 {
 
 a {
   display: inline-block;
-  margin: 5px;
-  padding: 14px 28px;
-  background-color: #2ecc71;
-  color: white;
-  text-decoration: none;
-  border-radius: 12px;
-  font-weight: bold;
-  font-size: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
-}
-
-a:hover {
-  background-color: #27ae60;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-}
-
-section {
-  margin-top: 40px; /* O el espacio que prefieras */
-}
-
-a {
-  display: inline-block;
+  width: 200px; /* Define un ancho fijo para todos los botones */
+  text-align: center; /* Centra el texto dentro del botón */
   margin: 0 auto;
-  padding: 14px 32px;
-  background-color: #9b3830; /* rojo marrón */
+  padding: 14px 20px; /* Ajusta el relleno interno */
+  background-color: #9b3830; /* Color de fondo */
   color: white;
   text-decoration: none;
   border-radius: 12px;
@@ -91,7 +70,11 @@ a {
 }
 
 a:hover {
-  background-color: #7a2a26; /* un poco más oscuro */
+  background-color: #7a2a26; /* Color más oscuro al pasar el mouse */
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(122, 42, 38, 0.5);
+}
+
+section {
+  margin-top: 40px; /* O el espacio que prefieras */
 }
