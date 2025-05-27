@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Nocturno20251Service } from './nocturno-2025-1.service';
+import { DiuHoyService } from './diu-hoy-service.service';
 
-describe('Nocturno20251Service', () => {
-  let service: Nocturno20251Service;
+describe('DiuHoyService', () => {
+  let service: DiuHoyService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(Nocturno20251Service);
+    service = TestBed.inject(DiuHoyService);
   });
 
   it('should be created', () => {

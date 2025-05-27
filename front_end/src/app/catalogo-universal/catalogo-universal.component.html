@@ -1,8 +1,8 @@
 <div class="container">
   <!-- Encabezado con título e imagen -->
   <div class="imagen">
-    <h1>{{ title }}</h1>
     <img width="200" alt="Logo Reservas" src="/Logo_Reservas.png">
+    <h1>{{ title }}</h1>
   </div>
 
   <!-- Sección de navegación -->
@@ -51,7 +51,7 @@
 
       <select formControlName="CatCatalogofiltro" (click)="ListarTiposCatalogos()">
       
-        <option value="">Seleccione un tipo</option>
+        <option value="">Seleccione un tipo:</option>
         <option *ngFor="let Tip of ListaTipos" [value]="Tip.Id_Catalogo">
           {{ Tip.Valor_Catalogo }}
         </option>
@@ -68,8 +68,8 @@
         <table>
           <thead>
             <tr>
-              <th>{{ tablaTipoCatalogo[0] }}</th>
-               <th>{{ tablaTipoCatalogo[1] }}</th>
+              <th>{{ tablaTipo_Catalogo[0] }}</th>
+               <th>{{ tablaTipo_Catalogo[1] }}</th>
             </tr>
           </thead>
           <tbody>
@@ -82,6 +82,102 @@
       </div>
     </form>
   </div>
+  
+<!--------------------------------------------------------------------------------------------->
+  <!-- para crear un nuevo Catalogo Universal -->
+
+  <div class="creaU">
+
+    <h2>Registrar un Nuevo Catalogo Universal</h2>
+
+    <form (ngSubmit)="InsertarNuevoCatalogo()" [formGroup]="CrearCatalogoU">
+
+      <!-- Los otros controles para la captura de los datos del Catalogo -->
+      <span class="spn_lbl">Denominación: </span>
+      <label for="textNueValor_Catalogo">
+          <input type="text" name="CtextNueValor_Catalogo" id="CtextNueValor_Catalogo" formControlName="textNueValor_Catalogo">
+      </label>
+      <br><br>
+
+      Tipos de Catalogos: 
+      <label for="CBTipo_Catalogo">
+        <select class="dropdown"   formControlName="CBTipo_Catalogo" (click)="ListarTiposCatalogos()">
+          <option value="">Tipos catalogos:</option>
+          <option *ngFor="let tidos of ListaTipos" [value]="tidos.Id_Catalogo">
+            {{tidos.Valor_Catalogo}} - {{tidos.Id_Catalogo}}
+          </option>
+    
+        </select>
+      </label>      
+      
+      <br><br>
+
+      <button type="submit">Nuevo Catalogo Universal</button>
+      <br><br>
+    </form>
+  </div>
+ 
+<!--------------------------------------------------------------------------------------------->
+  
+<!--------------------------------------------------------------------------------------------->
+  <!-- para Actualizar un Catalogo Universal -->
+
+  <div class="editU">
+
+    <h2>Modificar un Catalogo Universal</h2>
+
+    <form (ngSubmit)="SelCataEditar()" [formGroup]="ActCatalogoU">
+
+      <!-- para buscar el catalogo a modificar-->
+      <span class="spn_lbl">Catalogo a Editar: </span> 
+      <label>
+        <select  class="dropdown2"  formControlName="CBCatalogoEdi" (click)="listCataEditar()">
+          <option value="" >Catalogo:</option>
+          <option *ngFor="let caese of CataUniCatalogo" [value]="caese.Id_Catalogo">
+              {{caese.Valor_Catalogo}} - {{caese.Id_Catalogo}}
+          </option>
+
+        </select>
+      </label>
+      <br> <br>
+
+      <button type="submit" (click)="SelCataEditar()">Buscar Catalogo a Editar</button>
+    
+      <!-- Carga los valores del registro para modificarlos-->
+     <h2>{{titloCataUniEditar}}</h2>
+
+      <li [value]="CataUniCataEdi.Valor_Catalogo">
+     
+      <!-- Los otros controles para la captura de los datos deL CATALOGO -->
+      
+      <span class="spn_lbl">Valor Catalogo: </span>
+        <label for="CtextNueValor_CatalogoEdi"><input type="text" name="CtextNueValor_CatalogoEdi" id="CtextNueValor_CatalogoEdi" formControlName="textNueValor_CatalogoEdi"></label>
+      <br><br>
+  
+      <span class="spn_lbl">Tipo de Catalogo: </span>
+      <label for="CBTipo_CatalogoEdi">
+        <select class="dropdown"   formControlName="CBTipo_CatalogoEdi" (click)="ListarTiposCatalogos()">
+          <option value= "value1">Tipo de catalogo</option>
+          <option *ngFor="let tidos of ListaTipos" [value]="tidos.Id_Catalogo">
+            {{tidos.Valor_Catalogo}}
+          </option>
+        </select>
+
+      </label>   
+      <br><br>
+
+
+      </li>  
+      <br><br>
+
+      <button  (click)="ActualizarCatalogo()">Actualizar Registro</button>
+    
+      <br><br>
+  
+    </form>
+  </div> 
+ 
+ <!--------------------------------------------------------------------------------------------->
 
   <!-- Angular router outlet -->
   <router-outlet></router-outlet>
