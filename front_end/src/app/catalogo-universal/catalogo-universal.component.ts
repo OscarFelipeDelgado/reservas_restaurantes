@@ -60,7 +60,7 @@ export class CatalogoUniversalComponent implements OnInit {
     (
       {
         CBTipoCatalogo: new FormControl(),
-        textNueDenominacion: new FormControl(),
+        textNueValor_Catalogo: new FormControl(),
       }
     );
 
@@ -72,7 +72,7 @@ export class CatalogoUniversalComponent implements OnInit {
       {
         CBCatalogoEdi: new FormControl(),
         CBTipoCatalogoEdi: new FormControl(),
-        textNueDenominacionEdi: new FormControl(),
+        textNueValor_CatalogoEdi: new FormControl(),
        // textNueTipoCatEdi: new FormControl(),
       }
     );
@@ -144,7 +144,7 @@ export class CatalogoUniversalComponent implements OnInit {
   public InsertarNuevoCatalogo()   
   {
       //variables para armar el JSON que se va a enviar al Back-End
-      var datosvalo1 =  this.CrearCatalogoU.getRawValue()['textNueDenominacion']; 
+      var datosvalo1 =  this.CrearCatalogoU.getRawValue()['textNueValor_Catalogo']; 
       var datosvalo2 =  this.CrearCatalogoU.getRawValue()['CBTipoCatalogo'];
 
 
@@ -209,7 +209,7 @@ export class CatalogoUniversalComponent implements OnInit {
 
       //variables para armar el JSON que se va a enviar al Back-End
       var datosvalo1 =  this.ActCatalogoU.getRawValue()['CBCatalogoEdi'];
-      var datosvalo2 =  this.ActCatalogoU.getRawValue()['textNueDenominacionEdi']; 
+      var datosvalo2 =  this.ActCatalogoU.getRawValue()['textNueValor_CatalogoEdi']; 
       var datosvalo3 =  this.ActCatalogoU.getRawValue()['CBTipoCatalogoEdi'];
 
       
@@ -246,7 +246,7 @@ export class CatalogoUniversalComponent implements OnInit {
     this.CrearCatalogoU = this.formBuilder.group(
       {
         CBTipoCatalogo: [],
-        textNueDenominacion: [],
+        textNueValor_Catalogo: [],
 
       });
 
@@ -255,7 +255,7 @@ export class CatalogoUniversalComponent implements OnInit {
       {
         CBCatalogoEdi:  [],
         CBTipoCatalogoEdi:  [],
-        textNueDenominacionEdi:  [],
+        textNueValor_CatalogoEdi:  [],
       // textNueTipoCatEdi:  []
       });
   }

@@ -1,17 +1,19 @@
 .container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* botón abajo */
+  /* Cambiar justify-content a flex-start para que los botones se apilen sin mucho espacio entre */
+  justify-content: flex-start; 
   text-align: center;
   padding: 20px 10px;
   max-width: 700px;
-  height: 500px;
+  min-height: 500px; /* Opcional: mínimo alto para que no quede muy pequeño */
   margin: 1px auto 1px;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 20px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 0px solid #9b3830; 
 }
+
 
 header {
   flex-grow: 1;
@@ -51,14 +53,14 @@ section h3 {
 
 a {
   display: inline-block;
-  margin: 0 auto;
-  padding: 14px 32px;
+  margin: 5px;
+  padding: 14px 28px;
   background-color: #2ecc71;
   color: white;
   text-decoration: none;
   border-radius: 12px;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
 }
@@ -67,4 +69,28 @@ a:hover {
   background-color: #27ae60;
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+section {
+  margin-top: 40px; /* O el espacio que prefieras */
+}
+
+a {
+  display: inline-block;
+  margin: 0 auto;
+  padding: 14px 32px;
+  background-color: #9b3830; /* rojo marrón */
+  color: white;
+  text-decoration: none;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(155, 56, 48, 0.4);
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  background-color: #7a2a26; /* un poco más oscuro */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(122, 42, 38, 0.5);
 }
