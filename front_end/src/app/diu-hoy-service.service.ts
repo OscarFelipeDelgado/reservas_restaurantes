@@ -117,5 +117,45 @@ export class DiuHoyService
       }
       
   //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+  // SERVICIOS PARA LA TABLA PERSONAS
+  //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+  // Obtener todas las personas
+  getPersonas(): Promise<any> {
+    return axios.get(this.Url + "/Personas");
+  }
+
+  // Obtener una persona por ID
+  getPersonaById(id: number): Promise<any> {
+    return axios.get(`${this.Url}/Personas/${id}`);
+  }
+
+  // Crear nueva persona
+  async crearPersona(persona: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.Url + "/Personas", persona, httpOptions).toPromise()
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  // Actualizar persona existente
+  async actualizarPersona(persona: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.put(this.Url + "/Personas", persona, httpOptions).toPromise()
+        .then(resolve)
+        .catch(reject);
+    });
+  }
+
+  // Eliminar persona por ID
+  deletePersona(id: number): Promise<any> {
+    return axios.delete(`${this.Url}/Personas/${id}`);
+  }
+
   
 }
