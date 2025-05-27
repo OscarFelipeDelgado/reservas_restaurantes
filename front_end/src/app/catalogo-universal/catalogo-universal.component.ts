@@ -11,6 +11,7 @@ import { DiuHoyService } from '../diu-hoy-service.service';
   templateUrl: './catalogo-universal.component.html',
   styleUrl: './catalogo-universal.component.css'
 })
+
 export class CatalogoUniversalComponent implements OnInit {
 
   title = "CATÁLOGO UNIVERSAL";
@@ -27,7 +28,8 @@ export class CatalogoUniversalComponent implements OnInit {
   ListaTipos: any[] = [];
   tablaTipoCatalogo: string[] = [];
   controlLista2: boolean = false;
-
+  valorTipoCatNombre: string = "";
+  
   // Formularios
   CBCatalogoCatalogo!: FormGroup;
   ListarCatTotales = new FormGroup({
@@ -77,14 +79,22 @@ export class CatalogoUniversalComponent implements OnInit {
 
   // Obtener un tipo específico de catálogo
   public ListarCatalogoE(): void {
+
     const valorTipoCat = this.CBCatalogoCatalogo.getRawValue()['CatCatalogofiltro'];
+
+    // Guardar también el nombre del tipo de catálogo seleccionado
+    const tipoSeleccionado = this.ListaTipos.find(t => t.Id_Catalogo === Number(valorTipoCat));
+    this.valorTipoCatNombre = tipoSeleccionado ? tipoSeleccionado.Valor_Catalogo : "";
+
     this.controlLista2 = false;
+
     this.servi.getlListCatologoEsp('/' + valorTipoCat).then((data) => {
       this.CataUniTipo = data.data;
       console.log("Listado específico:", this.CataUniTipo);
-      this.titloCataUniTipo = "LISTA DEL CATALOGO DE " + valorTipoCat;
+      this.titloCataUniTipo = "Lista del catálogo de " + this.valorTipoCatNombre;
       this.tablaTipoCatalogo = ["Id", "Denominación"];
       this.controlLista2 = true;
+    
     }).catch(error => console.error("Error en getlListCatologoEsp:", error));
   }
 }
