@@ -8,7 +8,7 @@ describe('CatalogoUniversalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CatalogoUniversalComponent]
+      declarations: [CatalogoUniversalComponent]
     })
     .compileComponents();
 
