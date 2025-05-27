@@ -1,1 +1,93 @@
-<p>reservas works!</p>
+<div class="reservas-container">
+  <h2>RESERVA TU MESA</h2>
+
+  <form class="reservas-form">
+    <!-- Nombres -->
+    <div>
+      <label for="primerNombre">Primer nombre</label>
+      <input type="text" id="primerNombre" name="primerNombre" placeholder="Ingresa tu primer nombre" required />
+    </div>
+
+    <div>
+      <label for="segundoNombre">Segundo nombre</label>
+      <input type="text" id="segundoNombre" name="segundoNombre" placeholder="Ingresa tu segundo nombre" />
+    </div>
+
+    <!-- Apellidos -->
+    <div>
+      <label for="primerApellido">Primer apellido</label>
+      <input type="text" id="primerApellido" name="primerApellido" placeholder="Ingresa tu primer apellido" required />
+    </div>
+
+    <div>
+      <label for="segundoApellido">Segundo apellido</label>
+      <input type="text" id="segundoApellido" name="segundoApellido" placeholder="Ingresa tu segundo apellido" />
+    </div>
+
+<!-- Tipo de documento -->
+<div>
+  <label for="tipoDocumento">Tipo de documento</label>
+  <select id="tipoDocumento" name="tipoDocumento" required>
+    <option value="">Selecciona una opción</option>
+    <option value="cc">Cédula de Ciudadanía</option>
+    <option value="ce">Cédula de Extranjería</option>
+    <option value="pasaporte">Pasaporte</option>
+    <option value="ti">Tarjeta de Identidad</option>
+  </select>
+</div>
+
+
+    <!-- Número de documento -->
+    <div>
+      <label for="numeroDocumento">Número de documento</label>
+      <input type="text" id="numeroDocumento" name="numeroDocumento" placeholder="Ingresa tu número de documento" required />
+    </div>
+
+    <!-- Cantidad de personas -->
+    <div>
+      <label for="cantidadPersonas">Cantidad de personas</label>
+      <input type="number" id="cantidadPersonas" name="cantidadPersonas" placeholder="¿Cuántas personas asistirán?" min="1" required />
+    </div>
+
+<!-- Método de pago -->
+<div>
+  <label for="metodoPago">Método de pago</label>
+  <select id="metodoPago" name="metodoPago" required>
+    <option value="">Selecciona una opción</option>
+    <option value="efectivo">Efectivo</option>
+    <option value="tarjetaCredito">Tarjeta Crédito</option>
+    <option value="tarjetaDebito">Tarjeta Débito</option>
+    <option value="transferencia">Transferencia</option>
+    <option value="cheque">Cheque</option>
+    <option value="appMovil">App Móvil</option>
+  </select>
+</div>
+
+
+    <!-- Notas -->
+    <div>
+      <label for="notas">Notas adicionales</label>
+      <textarea id="notas" name="notas" rows="3" placeholder="¿Deseas añadir alguna instrucción especial?"></textarea>
+    </div>
+
+    <!-- Botón de envío -->
+    <button type="submit">Reservar</button>
+  </form>
+</div>
+
+<div class="reservas-container">
+  <h2>MOSTRAR RESERVAS</h2>
+
+  <form class="reservas-form" id="formReserva">
+    <!-- Campos de la reserva (igual que antes) -->
+    <!-- ... (tus inputs y selects aquí) ... -->
+
+
+    
+    <!-- Botón para mostrar la reserva -->
+    <button type="button" id="mostrarReservaBtn">Mostrar Reservas</button>
+  </form>
+
+  <!-- Contenedor para mostrar el resumen -->
+  <div id="resumenReserva" style="display:none; margin-top: 20px;"></div>
+</div>
