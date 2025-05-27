@@ -35,6 +35,32 @@ CataUniversalModelo.getCatalogoUsT = function ( callback)
         });
     }
 }
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+CataUniversalModelo.getId_CatalogoUs = function (Id_Catalogo, callback)
+{
+    if(connection)
+    {
+        var sql = "SELECT `Id_Catalogo`, `Tipo_Catalogo`, `Valor_Catalogo` FROM `catalogo_universal` WHERE `Id_Catalogo` = " + connection.escape(Id_Catalogo) + "ORDER BY `Valor_Catalogo`";
+ 
+        connection.query(sql, function (error, rows)
+        {
+ 
+            if (error)
+            {
+                throw error;
+            }
+            else
+            {
+                //debuelve las filas como un Json
+                callback(null, rows);
+
+                //comvierte las filas Json a una cadena de texto para Angular
+                //callback(null, JSON.stringify(rows));
+            }
+        });
+    }
+}
  
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 CataUniversalModelo.getTipoCatalogoUs = function (tipoCatalogo, callback)

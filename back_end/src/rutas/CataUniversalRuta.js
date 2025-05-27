@@ -27,6 +27,34 @@ module.exports = function()
             }
         });
     });
+
+    // Para llamar el método de mostrar todos los registros del Catalogo Universal
+    router.get("/id/:Id_Catalogo", function (req, res)
+    {
+
+        var Id_Catalogo = req.params.Id_Catalogo;
+
+        if(!isNaN(Id_Catalogo))
+        {
+
+            CataUniversalModelo.getId_CatalogoUs(Id_Catalogo, function (error, data)
+            {
+                if(typeof data !== 'undefined' && data.length > 0)
+                {
+                    res.status(200).json(data);
+                }
+                else{
+                    res.json(404,
+                        {
+                            "msg": "registro no existe"
+                        });
+                }
+            });
+        }
+        else{
+            res.status(500).json({"msg": "error"})    
+        }
+    });
   
 
     // Para llamar el método de mostrar un tipo de Catalogo

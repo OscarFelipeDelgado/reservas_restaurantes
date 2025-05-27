@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angul
 import { NgFor, CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { DiuHoyService } from '../diu-hoy-service.service';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-catalogo-universal',
@@ -26,7 +27,7 @@ export class CatalogoUniversalComponent implements OnInit {
   titloCataUniTipo = "";
   CataUniTipo: any[] = [];
   ListaTipos: any[] = [];
-  tablaTipoCatalogo: string[] = [];
+  tablaTipo_Catalogo: string[] = [];
   controlLista2: boolean = false;
   valorTipoCatNombre: string = "";
   
@@ -59,7 +60,7 @@ export class CatalogoUniversalComponent implements OnInit {
     CrearCatalogoU = new FormGroup 
     (
       {
-        CBTipoCatalogo: new FormControl(),
+        CBTipo_Catalogo: new FormControl(),
         textNueValor_Catalogo: new FormControl(),
       }
     );
@@ -71,7 +72,7 @@ export class CatalogoUniversalComponent implements OnInit {
     (
       {
         CBCatalogoEdi: new FormControl(),
-        CBTipoCatalogoEdi: new FormControl(),
+        CBTipo_CatalogoEdi: new FormControl(),
         textNueValor_CatalogoEdi: new FormControl(),
        // textNueTipoCatEdi: new FormControl(),
       }
@@ -83,7 +84,8 @@ export class CatalogoUniversalComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private servi: DiuHoyService,
-    private router: Router
+    private router: Router,
+    private cdRef: ChangeDetectorRef
   ) {}
 
 
@@ -132,7 +134,7 @@ export class CatalogoUniversalComponent implements OnInit {
       this.CataUniTipo = data.data;
       console.log("Listado específico:", this.CataUniTipo);
       this.titloCataUniTipo = "Lista del catálogo de " + this.valorTipoCatNombre;
-      this.tablaTipoCatalogo = ["Id", "Denominación"];
+      this.tablaTipo_Catalogo = ["Id", "Denominación"];
       this.controlLista2 = true;
     
     }).catch(error => console.error("Error en getlListCatologoEsp:", error));
@@ -145,13 +147,13 @@ export class CatalogoUniversalComponent implements OnInit {
   {
       //variables para armar el JSON que se va a enviar al Back-End
       var datosvalo1 =  this.CrearCatalogoU.getRawValue()['textNueValor_Catalogo']; 
-      var datosvalo2 =  this.CrearCatalogoU.getRawValue()['CBTipoCatalogo'];
+      var datosvalo2 =  this.CrearCatalogoU.getRawValue()['CBTipo_Catalogo'];
 
 
-       console.log(" aca 236  denominacion  " + datosvalo1 + " tipo " + datosvalo2);
+       console.log(" aca 236  Valor_Catalogo  " + datosvalo1 + " tipo " + datosvalo2);
       //JSON armado
-      var cadena = {"Denominacion": datosvalo1,
-                    "TipoCatalogo":datosvalo2,
+      var cadena = {"Valor_Catalogo": datosvalo1,
+                    "Tipo_Catalogo":datosvalo2,
                   };
       console.log(" aca 238 " + cadena);
 
@@ -190,13 +192,24 @@ export class CatalogoUniversalComponent implements OnInit {
     
     this.servi.getlCatEdit(this.valorCatEdit ).then((data: any) => 
     {
-      
+      console.log('Respuesta del servicio:', data);
       this.CataUniCataEdi = data.data;
 
       this.titloCataUniEditar = "CATALOGO A EDITAR";
 
-    },
-      error => { console.log(error) });
+      // Actualiza el formulario con los datos del catálogo a editar
+      this.ActCatalogoU.patchValue({
+        CBCatalogoEdi: data.data.Id_Catalogo,
+        textNueValor_CatalogoEdi: data.data.Valor_Catalogo,
+        CBTipo_CatalogoEdi: data.data.Tipo_Catalogo
+      });
+
+      // Forzar ciclo de detección de cambios para evitar el error NG0100
+      this.cdRef.detectChanges();
+
+    }).catch(error => {
+      console.log(error);
+    });
 
   }
 
@@ -210,13 +223,13 @@ export class CatalogoUniversalComponent implements OnInit {
       //variables para armar el JSON que se va a enviar al Back-End
       var datosvalo1 =  this.ActCatalogoU.getRawValue()['CBCatalogoEdi'];
       var datosvalo2 =  this.ActCatalogoU.getRawValue()['textNueValor_CatalogoEdi']; 
-      var datosvalo3 =  this.ActCatalogoU.getRawValue()['CBTipoCatalogoEdi'];
+      var datosvalo3 =  this.ActCatalogoU.getRawValue()['CBTipo_CatalogoEdi'];
 
       
       //JSON armado
       var cadena = {"IdCataUniv":datosvalo1,
-                    "Denominacion":datosvalo2,
-                    "TipoCatalogo":datosvalo3
+                    "Valor_Catalogo":datosvalo2,
+                    "Tipo_Catalogo":datosvalo3
                   };
 
   
@@ -245,7 +258,7 @@ export class CatalogoUniversalComponent implements OnInit {
 
     this.CrearCatalogoU = this.formBuilder.group(
       {
-        CBTipoCatalogo: [],
+        CBTipo_Catalogo: [],
         textNueValor_Catalogo: [],
 
       });
@@ -254,7 +267,7 @@ export class CatalogoUniversalComponent implements OnInit {
     this.ActCatalogoU = this.formBuilder.group(
       {
         CBCatalogoEdi:  [],
-        CBTipoCatalogoEdi:  [],
+        CBTipo_CatalogoEdi:  [],
         textNueValor_CatalogoEdi:  [],
       // textNueTipoCatEdi:  []
       });

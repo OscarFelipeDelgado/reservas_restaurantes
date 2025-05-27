@@ -22,6 +22,12 @@ export class DiuHoyService
 
   constructor(private http: HttpClient) {} // inyección correcta
 
+  getCatalogo() 
+  {
+    return this.http.get('/api/catalogo');
+  }
+
+
   private extractData(res: Response) 
   {
     //console.log("22");
@@ -54,14 +60,14 @@ export class DiuHoyService
       return axios.get(this.Url + "/CataUniversal");
     }
 
-  //-------------------------------------------------------------
-  //Lista los tipos de catalogos que hay 
+    //-------------------------------------------------------------
+    //Lista los tipos de catalogos que hay 
 
-   getlListCatologos(): Promise<any> 
-   {
-      return axios.get(this.Url + "/CataUniversal/1");
+    getlListCatologos(): Promise<any> 
+    {
+        return axios.get(this.Url + "/CataUniversal/1");
 
-   }
+    }
 
    //-------------------------------------------------------------
    //Lista el tipo de catalogo que se seleciono
@@ -72,34 +78,33 @@ export class DiuHoyService
 
    }
    
-   //-------------------------------------------------------------
+    //-------------------------------------------------------------
     // Método para insertar un nuevo Catalogo
 
     async CrearCatalogoU(Dato:any): Promise<any> 
     {
 
       return new Promise((resolve, reject) => {
-      this.http.post(this.Url +  "/Universal",Dato, httpOptions).toPromise()
+      this.http.post(this.Url +  "/CataUniversal",Dato, httpOptions).toPromise()
       });
     }
  
-  //-------------------------------------------------------------
+    //-------------------------------------------------------------
     //lista todos los catalogos que hay
 
     getCatalogoTotalOrd(): Promise<any> 
     {
-      return axios.get(this.Url + "/Universal");
+      return axios.get(this.Url + "/CataUniversal");
       
     }    
     //--------------------------------------------------------------
-  // lista el registro selecionado por ID
+    // lista el registro selecionado por ID
 
-      getlCatEdit(Id: any): Promise<any> 
-      {
-            console.log(" estamos acaaaa " + Id);
-        return axios.get(this.Url + "/Universal/unosolo/" + Id);
-  
-      }
+    getlCatEdit(Id: any): Promise<any> 
+    {
+      console.log("Actualizando Catálogo: # " + Id);
+      return axios.get(this.Url + "/CataUniversal/id/" + Id);
+    }
       
 
     //-------------------------------------------------------------
@@ -109,9 +114,9 @@ export class DiuHoyService
 
       async ActualizarCatalogoU(Dato:any): Promise<any> 
       {
-        console.log(" estamos aaaaa " + Dato.IdCataUniv + "  ww  " + Dato.Denominacion + "  qqq  " + Dato.TipoCatalogo);
+        console.log(" estamos aaaaa " + Dato.Id_Catalogo + "  ww  " + Dato.Valor_Catalogo + "  qqq  " + Dato.Tipo_Catalogo);
         return new Promise((resolve, reject) => {
-        this.http.put(this.Url +  "/Universal",Dato, httpOptions).toPromise()
+        this.http.put(this.Url +  "/CataUniversal",Dato, httpOptions).toPromise()
         });
 
       }

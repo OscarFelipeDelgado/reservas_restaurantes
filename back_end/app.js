@@ -1,7 +1,13 @@
+
 var express = require('express'); //guarda express que nosotros intalamos
 var bodyParser = require('body-parser'), port = 3000; //rmanejo de cuerpo de la "pagina" y puerto
 var http = require('http'); //protocolo de intercambio de archivos
 var path = require('path'); //direccion
+
+const cors = require('cors');
+
+
+
 
 var conectado = require('./src/conexion/index');
 
@@ -29,6 +35,20 @@ const InformesRuta = require('./src/rutas/InformesRuta');
 //var tipdoc = require('./src/Rutas/tipdocruta');//ruta
 
 var app = express(); //recibe un constructor
+
+app.use(cors({
+  origin: 'http://localhost:4200',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  next();
+});
 
 
 // todos los entornos
