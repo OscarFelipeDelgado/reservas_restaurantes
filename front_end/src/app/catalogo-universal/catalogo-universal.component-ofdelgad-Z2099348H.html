@@ -1,0 +1,87 @@
+<div class="container">
+  <!-- Encabezado con título e imagen -->
+  <div class="imagen">
+    <h1>{{ title }}</h1>
+    <img width="200" alt="Logo Reservas" src="/Logo_Reservas.png">
+  </div>
+
+  <!-- Sección de navegación -->
+  <div class="dir">
+    <!-- <h3><a routerLink="/Persona">PERSONAS</a></h3> -->
+    <h3><a routerLink="/MenuInicio">MENÚ INICIAL</a></h3>
+  </div>
+  
+  
+  <!-- Sección de todos los catálogos -->
+  <div class="listaU">
+    <h2>Todos los Catálogos</h2>
+
+    <button (click)="consultaCatalogosTotales()" style="margin-right: 30px">Listar todos los Catálogos</button>
+    <button (click)="LimpiarLista1()">Limpiar todos los Catálogos</button>
+
+    <div *ngIf="controlLista1 && CataUniT.length > 0">
+      <h2>{{ tituloCataUniLista }}</h2>
+      <div class="tabla-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Denominación</th>
+              <th>Tipo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let catu of CataUniT">
+              <td>{{ catu.Id_Catalogo }}</td>
+              <td>{{ catu.Valor_Catalogo }}</td>
+              <td>{{ catu.Tipo_Catalogo }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Sección de un tipo de catálogo -->
+  <div class="tipo">
+    <h2>Mostrar por Tipo de Catálogo:</h2>
+
+    <form [formGroup]="CBCatalogoCatalogo">
+      <label for="CatCatalogofiltro">Tipos de Catálogos</label><br>
+      <select formControlName="CatCatalogofiltro" (click)="ListarTiposCatalogos()">
+        <option value="">Seleccione un tipo</option>
+        <option *ngFor="let Tip of ListaTipos" [value]="Tip.Id_Catalogo">
+          {{ Tip.Valor_Catalogo }}
+        </option>
+      </select>
+
+      <br><br>
+
+      <button type="button" (click)="ListarCatalogoE()">Mostrar tipo seleccionado</button>
+      <button type="button" (click)="LimpiarLista2()">Limpiar Catálogo</button>
+
+      <div *ngIf="controlLista2">
+        <h2>{{ titloCataUniTipo }}</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>{{ tablaTipoCatalogo[0] }}</th>
+               <th>{{ tablaTipoCatalogo[1] }}</th>
+              <th>{{ tablaTipoCatalogo[2] }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let Tipo of CataUniTipo">
+              <td>{{ Tipo.Id_Catalogo }}</td>
+              <td>{{ Tipo.Valor_Catalogo }}</td>
+              <td>{{ Tipo.Tipo_Catalogo }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+
+  <!-- Angular router outlet -->
+  <router-outlet></router-outlet>
+</div>
