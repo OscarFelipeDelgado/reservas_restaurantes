@@ -30,11 +30,55 @@ export class CatalogoUniversalComponent implements OnInit {
   controlLista2: boolean = false;
   valorTipoCatNombre: string = "";
   
+  CataUniCatalogo: any = [];                  //Lista catalogo Catalogo
+  titloCataUniEditar = "";                    //Titulo de Color a Editar
+  CataUniCataEdi: any = [];                    // Registro del catalogo a editar
+  //public valorTipoCat = 0;                    //Variables para pasar parametros a los metodos
+  //public controlLista2 = 1;                   //Control para limpiar la lista tipo catalogo
+  // CataUniCatalogo: any[] = [];                  //Lista catalogo Catalogo
+  public valorCatEdit = 0;                    //Variables para pasar parametros a los metodos
+
   // Formularios
-  CBCatalogoCatalogo!: FormGroup;
   ListarCatTotales = new FormGroup({
     Listaa: new FormControl()
   });
+
+    //--------------------------------------------------------------------------
+
+    //Grupo para formulario mostrar tipo de Catalogo
+    CBCatalogoCatalogo = new FormGroup 
+    (
+      {
+        CatCatalogofiltro: new FormControl(),
+      }
+    );
+
+//..................................................................
+
+    //Grupo para crear Catalogos
+    CrearCatalogoU = new FormGroup 
+    (
+      {
+        CBTipoCatalogo: new FormControl(),
+        textNueDenominacion: new FormControl(),
+      }
+    );
+
+//..................................................................
+
+    //Grupo para editar Catalogos
+    ActCatalogoU = new FormGroup 
+    (
+      {
+        CBCatalogoEdi: new FormControl(),
+        CBTipoCatalogoEdi: new FormControl(),
+        textNueDenominacionEdi: new FormControl(),
+       // textNueTipoCatEdi: new FormControl(),
+      }
+    );
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,11 +86,7 @@ export class CatalogoUniversalComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.CBCatalogoCatalogo = this.formBuilder.group({
-      CatCatalogofiltro: []
-    });
-  }
+
 
   // Obtener todos los catálogos
   public consultaCatalogosTotales(): void {
@@ -211,15 +251,13 @@ export class CatalogoUniversalComponent implements OnInit {
       });
 
       
-      this.ActCatalogoU = this.formBuilder.group(
-        {
-          CBCatalogoEdi:  [],
-          CBTipoCatalogoEdi:  [],
-          textNueDenominacionEdi:  [],
-        // textNueTipoCatEdi:  []
-        });
-    
-
+    this.ActCatalogoU = this.formBuilder.group(
+      {
+        CBCatalogoEdi:  [],
+        CBTipoCatalogoEdi:  [],
+        textNueDenominacionEdi:  [],
+      // textNueTipoCatEdi:  []
+      });
   }
 
 }
