@@ -97,4 +97,129 @@ export class CatalogoUniversalComponent implements OnInit {
     
     }).catch(error => console.error("Error en getlListCatologoEsp:", error));
   }
+
+  //-------------------------------------------------------------------------
+  //Para insertar una nuevo catalogo
+
+  public InsertarNuevoCatalogo()   
+  {
+      //variables para armar el JSON que se va a enviar al Back-End
+      var datosvalo1 =  this.CrearCatalogoU.getRawValue()['textNueDenominacion']; 
+      var datosvalo2 =  this.CrearCatalogoU.getRawValue()['CBTipoCatalogo'];
+
+
+       console.log(" aca 236  denominacion  " + datosvalo1 + " tipo " + datosvalo2);
+      //JSON armado
+      var cadena = {"Denominacion": datosvalo1,
+                    "TipoCatalogo":datosvalo2,
+                  };
+      console.log(" aca 238 " + cadena);
+
+      //se consume el servicio
+      this.servi.CrearCatalogoU(cadena).then(res =>
+      {
+        console.log(res)
+      }).catch(err =>{
+        console.log(err)
+      })
+      
+      this.CrearCatalogoU.reset();
+  }
+
+
+  //--------------------------------------------------------------
+  //Lista todos los catalogos para el combo de editar
+
+  public listCataEditar() 
+  {
+
+    this.servi.getCatalogoTotalOrd().then((data) => 
+      {
+        this.CataUniCatalogo = data.data;
+        //console.log(" aca 234 " + );
+      },
+        error => { console.log(error) });
+
+    }
+
+  //--------------------------------------------------------------
+  //Consulta un catalogo por Id.
+  public SelCataEditar() 
+  {
+  this.valorCatEdit =  this.ActCatalogoU.getRawValue()['CBCatalogoEdi'];
+    
+    this.servi.getlCatEdit(this.valorCatEdit ).then((data: any) => 
+    {
+      
+      this.CataUniCataEdi = data.data;
+
+      this.titloCataUniEditar = "CATALOGO A EDITAR";
+
+    },
+      error => { console.log(error) });
+
+  }
+
+
+  // -----------------------------------------------------------------------------------------
+  // método para actualizar un catalogo .
+
+  public ActualizarCatalogo() 
+  {
+
+      //variables para armar el JSON que se va a enviar al Back-End
+      var datosvalo1 =  this.ActCatalogoU.getRawValue()['CBCatalogoEdi'];
+      var datosvalo2 =  this.ActCatalogoU.getRawValue()['textNueDenominacionEdi']; 
+      var datosvalo3 =  this.ActCatalogoU.getRawValue()['CBTipoCatalogoEdi'];
+
+      
+      //JSON armado
+      var cadena = {"IdCataUniv":datosvalo1,
+                    "Denominacion":datosvalo2,
+                    "TipoCatalogo":datosvalo3
+                  };
+
+  
+      //se consume el servicio
+      this.servi.ActualizarCatalogoU(cadena).then(res =>
+      {
+        console.log(res)
+      }).catch(err =>{
+        console.log(err)
+      })
+
+      this.CrearCatalogoU.reset();
+  }
+
+
+  //=============================================================
+  //LAS FUNCIONES PARA LLAMARLAS DESDE EL HTML
+  //=============================================================  
+
+  ngOnInit(): void 
+  {
+    this.CBCatalogoCatalogo = this.formBuilder.group(
+    {
+      CatCatalogofiltro: [],
+    });
+
+    this.CrearCatalogoU = this.formBuilder.group(
+      {
+        CBTipoCatalogo: [],
+        textNueDenominacion: [],
+
+      });
+
+      
+      this.ActCatalogoU = this.formBuilder.group(
+        {
+          CBCatalogoEdi:  [],
+          CBTipoCatalogoEdi:  [],
+          textNueDenominacionEdi:  [],
+        // textNueTipoCatEdi:  []
+        });
+    
+
+  }
+
 }
