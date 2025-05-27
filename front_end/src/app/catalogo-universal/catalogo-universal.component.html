@@ -1,8 +1,8 @@
 <div class="container">
   <!-- Encabezado con título e imagen -->
   <div class="imagen">
-    <h1>{{ title }}</h1>
     <img width="200" alt="Logo Reservas" src="/Logo_Reservas.png">
+    <h1>{{ title }}</h1>
   </div>
 
   <!-- Sección de navegación -->
@@ -93,9 +93,9 @@
     <form (ngSubmit)="InsertarNuevoCatalogo()" [formGroup]="CrearCatalogoU">
 
       <!-- Los otros controles para la captura de los datos del Catalogo -->
-      <span class="spn_lbl">Denominasión</span>
-      <label for="textNueDenominacion">
-          <input type="text" name="CtextNueDenominacion" id="CtextNueDenominacion" formControlName="textNueDenominacion">
+      <span class="spn_lbl">Denominación</span>
+      <label for="textNueValor_Catalogo">
+          <input type="text" name="CtextNueValor_Catalogo" id="CtextNueValor_Catalogo" formControlName="textNueValor_Catalogo">
       </label>
       <br><br>
 
@@ -103,9 +103,9 @@
       <label for="CBTipoCatalogo">
         <select class="dropdown"   formControlName="CBTipoCatalogo" (click)="ListarTiposCatalogos()">
           <option value="value1">Tipos catalogo</option>
-          <option *ngFor="let tidos of ListaTipos" [value]="tidos.IdCataUniv">
-            {{tidos.IdCataUniv}} -
-            {{tidos.Denominacion}}
+          <option *ngFor="let tidos of ListaTipos" [value]="tidos.Id_Catalogo">
+            {{tidos.Id_Catalogo}} -
+            {{tidos.Valor_Catalogo}}
           </option>
     
         </select>
@@ -117,7 +117,6 @@
       <br><br>
     </form>
   </div>
-  <br><br>
  
 <!--------------------------------------------------------------------------------------------->
   
@@ -135,9 +134,9 @@
       <label>
         <select  class="dropdown2"  formControlName="CBCatalogoEdi" (click)="listCataEditar()">
           <option value="value1" >Catalogo</option>
-          <option *ngFor="let caese of CataUniCatalogo" [value]="caese.IdCataUniv">
-              {{caese.IdCataUniv}} -
-              {{caese.Denominacion}}
+          <option *ngFor="let caese of CataUniCatalogo" [value]="caese.Id_Catalogo">
+              {{caese.Id_Catalogo}} -
+              {{caese.Valor_Catalogo}}
           </option>
 
         </select>
@@ -153,17 +152,17 @@
      
       <!-- Los otros controles para la captura de los datos deL CATALOGO -->
       
-      <span class="spn_lbl">Denominacion</span>
-      <label for="CtextNueDenominacionEdi"><input type="text" name="CtextNueDenominacionEdi" id="CtextNueDenominacionEdi" 
-         [(ngModel)]="cataU.Denominacion" formControlName="textNueDenominacionEdi"></label>
+      <span class="spn_lbl">Valor_Catalogo</span>
+      <label for="CtextNueValor_CatalogoEdi"><input type="text" name="CtextNueValor_CatalogoEdi" id="CtextNueValor_CatalogoEdi" 
+         [(ngModel)]="cataU.Valor_Catalogo" formControlName="textNueValor_CatalogoEdi"></label>
       <br><br>
   
       <span class="spn_lbl">Tipo de Catalogo</span>
       <label for="CBTipoCatalogoEdi">
         <select class="dropdown"   formControlName="CBTipoCatalogoEdi" (click)="ListarTiposCatalogos()">
           <option value= "value1">Tipo de catalogo</option>
-          <option *ngFor="let tidos of ListaTipos" [value]="tidos.IdCataUniv">
-            {{tidos.Denominacion}}
+          <option *ngFor="let tidos of ListaTipos" [value]="tidos.Id_Catalogo">
+            {{tidos.Valor_Catalogo}}
           </option>
         </select>
 
