@@ -114,7 +114,7 @@ export class DiuHoyService
 
       async ActualizarCatalogoU(Dato:any): Promise<any> 
       {
-        console.log(" estamos aaaaa " + Dato.Id_Catalogo + "  ww  " + Dato.Valor_Catalogo + "  qqq  " + Dato.Tipo_Catalogo);
+        console.log("ActualizarCatalogoU, Id_Catalogo: " + Dato.Id_Catalogo + ",Valor_Catalogo: " + Dato.Valor_Catalogo + ",Tipo_Catalogo: " + Dato.Tipo_Catalogo);
         return new Promise((resolve, reject) => {
         this.http.put(this.Url +  "/CataUniversal",Dato, httpOptions).toPromise()
         });

@@ -227,7 +227,7 @@ export class CatalogoUniversalComponent implements OnInit {
 
       
       //JSON armado
-      var cadena = {"IdCataUniv":datosvalo1,
+      var cadena = {"Id_Catalogo":datosvalo1,
                     "Valor_Catalogo":datosvalo2,
                     "Tipo_Catalogo":datosvalo3
                   };
