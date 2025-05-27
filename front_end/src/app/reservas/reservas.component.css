@@ -50,22 +50,26 @@ form textarea {
 
 .reservas-form button {
   padding: 14px;
-  background-color: #2ecc71;
+  background-color: #9b3830; /* Color rojo marrón */
   color: white;
   border: none;
   border-radius: 10px;
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(155, 56, 48, 0.4); /* Sombra acorde al color */
   transition: background-color 0.3s, transform 0.2s;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  display: block;
 }
 
 .reservas-form button:hover {
-  background-color: #27ae60;
+  background-color: #7a2a26; /* Tonalidad más oscura al pasar el mouse */
   transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(122, 42, 38, 0.5);
 }
-
 .reservas-form button {
   width: 100%;
   max-width: 300px;
