@@ -4,7 +4,35 @@ const MesasXMenuModelo = {};
 // Obtener todos los registros de mesas por menú
 MesasXMenuModelo.getMesasXMenu = function(callback) {
     if (connection) {
-        const sql = "SELECT * FROM mesas_x_menus ORDER BY Id_Mesa_X_Menu;";
+        const sql = `
+        SELECT  
+mm.Id_Mesa,
+mm.Id_Menu,
+m.Numero_Mesa,
+m.Capacidad,
+ub.Valor_Catalogo AS Ubicacion,
+em.Valor_Catalogo AS Estado_Mesa,
+tm.Valor_Catalogo AS Tipo_Mesa,
+me.Descripcion,
+na.Valor_Catalogo AS Nacionalidad,
+po.Valor_Catalogo AS Porciones, 
+tp.Valor_Catalogo AS Tipo_Plato,
+cp.Valor_Catalogo AS Clase_Plato
+
+FROM mesas_x_menus mm 
+LEFT JOIN mesas m ON mm.Id_Mesa = m.Id_Mesa
+LEFT JOIN menus me ON mm.Id_Menu = me.Id_Menu
+LEFT JOIN catalogo_universal ub ON m.Ubicacion = ub.Id_Catalogo
+LEFT JOIN catalogo_universal em ON m.Estado_Mesa = em.Id_Catalogo
+LEFT JOIN catalogo_universal tm ON m.Tipo_Mesa = tm.Id_Catalogo
+LEFT JOIN catalogo_universal na ON me.Nacionalidad = na.Id_Catalogo
+LEFT JOIN catalogo_universal po ON me.Porciones = po.Id_Catalogo
+LEFT JOIN catalogo_universal tp ON me.Tipo_Plato = tp.Id_Catalogo
+LEFT JOIN catalogo_universal cp ON me.Clase_Plato = cp.Id_Catalogo
+
+
+ORDER BY Id_Mesa_X_Menu
+;`   ;
         connection.query(sql, (error, rows) => {
             if (error) return callback(error, null);
             callback(null, rows);
