@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http'; 
 
 import {AppComponent} from './app.component'
 import {CatalogoUniversalComponent} from './catalogo-universal/catalogo-universal.component'

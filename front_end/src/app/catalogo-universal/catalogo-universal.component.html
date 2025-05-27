@@ -82,6 +82,106 @@
       </div>
     </form>
   </div>
+  
+<!--------------------------------------------------------------------------------------------->
+  <!-- para crear un nuevo Catalogo Universal -->
+
+  <div class="creaU">
+
+    <h2>Registrar un Nuevo Catalogo Universal</h2>
+
+    <form (ngSubmit)="InsertarNuevoCatalogo()" [formGroup]="CrearCatalogoU">
+
+      <!-- Los otros controles para la captura de los datos del Catalogo -->
+      <span class="spn_lbl">Denominasión</span>
+      <label for="textNueDenominacion">
+          <input type="text" name="CtextNueDenominacion" id="CtextNueDenominacion" formControlName="textNueDenominacion">
+      </label>
+      <br><br>
+
+      Tipos de Catalogos 
+      <label for="CBTipoCatalogo">
+        <select class="dropdown"   formControlName="CBTipoCatalogo" (click)="ListarTiposCatalogos()">
+          <option value="value1">Tipos catalogo</option>
+          <option *ngFor="let tidos of ListaTipos" [value]="tidos.IdCataUniv">
+            {{tidos.IdCataUniv}} -
+            {{tidos.Denominacion}}
+          </option>
+    
+        </select>
+      </label>      
+      
+      <br><br>
+
+      <button type="submit">Nuevo Catalogo Universal</button>
+      <br><br>
+    </form>
+  </div>
+  <br><br>
+ 
+<!--------------------------------------------------------------------------------------------->
+  
+<!--------------------------------------------------------------------------------------------->
+  <!-- para Actualizar un Catalogo Universal -->
+
+  <div class="editU">
+
+    <h2>Modificar un Catalogo Universal</h2>
+
+    <form (ngSubmit)="SelCataEditar()" [formGroup]="ActCatalogoU">
+
+      <!-- para buscar el catalogo a modificar-->
+      <span class="spn_lbl">Catalogo a Editar</span> 
+      <label>
+        <select  class="dropdown2"  formControlName="CBCatalogoEdi" (click)="listCataEditar()">
+          <option value="value1" >Catalogo</option>
+          <option *ngFor="let caese of CataUniCatalogo" [value]="caese.IdCataUniv">
+              {{caese.IdCataUniv}} -
+              {{caese.Denominacion}}
+          </option>
+
+        </select>
+      </label>
+      <br> <br>
+
+      <button type="submit" (click)="SelCataEditar()">Buscar Catalogo a Editar</button>
+    
+      <!-- Carga los valores del registro para modificarlos-->
+     <h2>{{titloCataUniEditar}}</h2>
+
+      <li *ngFor="let cataU of CataUniCataEdi">
+     
+      <!-- Los otros controles para la captura de los datos deL CATALOGO -->
+      
+      <span class="spn_lbl">Denominacion</span>
+      <label for="CtextNueDenominacionEdi"><input type="text" name="CtextNueDenominacionEdi" id="CtextNueDenominacionEdi" 
+         [(ngModel)]="cataU.Denominacion" formControlName="textNueDenominacionEdi"></label>
+      <br><br>
+  
+      <span class="spn_lbl">Tipo de Catalogo</span>
+      <label for="CBTipoCatalogoEdi">
+        <select class="dropdown"   formControlName="CBTipoCatalogoEdi" (click)="ListarTiposCatalogos()">
+          <option value= "value1">Tipo de catalogo</option>
+          <option *ngFor="let tidos of ListaTipos" [value]="tidos.IdCataUniv">
+            {{tidos.Denominacion}}
+          </option>
+        </select>
+
+      </label>   
+      <br><br>
+
+
+      </li>  
+      <br><br>
+
+      <button  (click)="ActualizarCatalogo()">Actualizar Registro</button>
+    
+      <br><br>
+  
+    </form>
+  </div> 
+ 
+ <!--------------------------------------------------------------------------------------------->
 
   <!-- Angular router outlet -->
   <router-outlet></router-outlet>
