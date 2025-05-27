@@ -2,7 +2,6 @@
   display: block;
   height: 100vh;
   position: relative;
-  overflow: auto;  /* Cambié hidden a auto para que aparezca scroll si es necesario */
 }
 
 :host::before {

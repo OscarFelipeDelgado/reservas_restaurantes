@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="imagen">
+    <h1>{{ title }}</h1>
+    <img width="200" alt="Logo Reservas" src="/Logo_Reservas.png">
+  </div>
+
+  <div class="dir">
+    <h3><a routerLink="/MenuInicio">MENÚ INICIAL</a></h3>
+  </div>
+
+  <!-- Listado general de personas -->
+  <div class="listaU">
+    <h2>Todas las Personas</h2>
+    <button (click)="listarTodasPersonas()" style="margin-right: 30px">Listar todas las Personas</button>
+    <button (click)="limpiarListado1()">Limpiar listado de personas</button>
+
+    <div *ngIf="controlLista1 && personasList.length > 0">
+      <h2>{{ tituloPersonasLista }}</h2>
+      <div class="tabla-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tipo Documento</th>
+              <th>Num Documento</th>
+              <th>Primer Nombre</th>
+              <th>Segundo Nombre</th>
+              <th>Primer Apellido</th>
+              <th>Segundo Apellido</th>
+              <th>Fecha Nacimiento</th>
+              <th>Estado Civil</th>
+              <th>EPS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let persona of personasList">
+              <td>{{ persona.Id_Persona }}</td>
+              <td>{{ persona.Tipo_Documento }}</td>
+              <td>{{ persona.Num_Documento }}</td>
+              <td>{{ persona.Primer_Nombre }}</td>
+              <td>{{ persona.Segundo_Nombre }}</td>
+              <td>{{ persona.Primer_Apellido }}</td>
+              <td>{{ persona.Segundo_Apellido }}</td>
+              <td>{{ persona.Fecha_Nacimiento }}</td>
+              <td>{{ persona.Estado_Civil }}</td>
+              <td>{{ persona.Eps_Persona }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mostrar persona por ID -->
+  <div class="tipo">
+    <h2>Mostrar Persona por ID</h2>
+    <form [formGroup]="personaForm">
+      <label for="personaId">Seleccione ID de persona</label><br>
+      <input type="number" formControlName="personaId" min="1" placeholder="Ingrese ID de persona" />
+      <br><br>
+      <button type="button" (click)="mostrarPersonaPorId()">Mostrar Persona seleccionada</button>
+      <button type="button" (click)="limpiarListado2()">Limpiar listado</button>
+
+      <div *ngIf="controlLista2 && personaSeleccionada">
+        <h2>Detalles de Persona</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Tipo Documento</th>
+              <th>Num Documento</th>
+              <th>Primer Nombre</th>
+              <th>Segundo Nombre</th>
+              <th>Primer Apellido</th>
+              <th>Segundo Apellido</th>
+              <th>Fecha Nacimiento</th>
+              <th>Estado Civil</th>
+              <th>EPS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ personaSeleccionada.Id_Persona }}</td>
+              <td>{{ personaSeleccionada.Tipo_Documento }}</td>
+              <td>{{ personaSeleccionada.Num_Documento }}</td>
+              <td>{{ personaSeleccionada.Primer_Nombre }}</td>
+              <td>{{ personaSeleccionada.Segundo_Nombre }}</td>
+              <td>{{ personaSeleccionada.Primer_Apellido }}</td>
+              <td>{{ personaSeleccionada.Segundo_Apellido }}</td>
+              <td>{{ personaSeleccionada.Fecha_Nacimiento }}</td>
+              <td>{{ personaSeleccionada.Estado_Civil }}</td>
+              <td>{{ personaSeleccionada.Eps_Persona }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </form>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>
