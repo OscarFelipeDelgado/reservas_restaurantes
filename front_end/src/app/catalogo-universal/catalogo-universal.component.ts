@@ -133,7 +133,7 @@ export class CatalogoUniversalComponent implements OnInit {
     this.servi.getlListCatologoEsp('/' + valorTipoCat).then((data) => {
       this.CataUniTipo = data.data;
       console.log("Listado específico:", this.CataUniTipo);
-      this.titloCataUniTipo = "Lista del catálogo de " + this.valorTipoCatNombre;
+      this.titloCataUniTipo = this.valorTipoCatNombre;
       this.tablaTipo_Catalogo = ["Id", "Denominación"];
       this.controlLista2 = true;
     
@@ -185,6 +185,7 @@ export class CatalogoUniversalComponent implements OnInit {
     }
 
   //--------------------------------------------------------------
+  
   //Consulta un catalogo por Id.
   public SelCataEditar() 
   {
@@ -192,24 +193,13 @@ export class CatalogoUniversalComponent implements OnInit {
     
     this.servi.getlCatEdit(this.valorCatEdit ).then((data: any) => 
     {
-      console.log('Respuesta del servicio:', data);
+      
       this.CataUniCataEdi = data.data;
 
       this.titloCataUniEditar = "CATALOGO A EDITAR";
 
-      // Actualiza el formulario con los datos del catálogo a editar
-      this.ActCatalogoU.patchValue({
-        CBCatalogoEdi: data.data.Id_Catalogo,
-        textNueValor_CatalogoEdi: data.data.Valor_Catalogo,
-        CBTipo_CatalogoEdi: data.data.Tipo_Catalogo
-      });
-
-      // Forzar ciclo de detección de cambios para evitar el error NG0100
-      this.cdRef.detectChanges();
-
-    }).catch(error => {
-      console.log(error);
-    });
+    },
+      error => { console.log(error) });
 
   }
 
@@ -219,29 +209,28 @@ export class CatalogoUniversalComponent implements OnInit {
 
   public ActualizarCatalogo() 
   {
+    // Siempre toma el ID del formulario y conviértelo a número
+    const idCatalogo = Number(this.ActCatalogoU.getRawValue()['CBCatalogoEdi']);
+    const valorCatalogo = this.ActCatalogoU.getRawValue()['textNueValor_CatalogoEdi']; 
+    const tipoCatalogo = this.ActCatalogoU.getRawValue()['CBTipo_CatalogoEdi'];
 
-      //variables para armar el JSON que se va a enviar al Back-End
-      var datosvalo1 =  this.ActCatalogoU.getRawValue()['CBCatalogoEdi'];
-      var datosvalo2 =  this.ActCatalogoU.getRawValue()['textNueValor_CatalogoEdi']; 
-      var datosvalo3 =  this.ActCatalogoU.getRawValue()['CBTipo_CatalogoEdi'];
+    if (!idCatalogo) {
+      console.error('No hay catálogo seleccionado para actualizar.');
+      return;
+    }
 
-      
-      //JSON armado
-      var cadena = {"Id_Catalogo":datosvalo1,
-                    "Valor_Catalogo":datosvalo2,
-                    "Tipo_Catalogo":datosvalo3
-                  };
+    const cadena = {
+      Id_Catalogo: idCatalogo,
+      Valor_Catalogo: valorCatalogo,
+      Tipo_Catalogo: tipoCatalogo
+    };
 
-  
-      //se consume el servicio
-      this.servi.ActualizarCatalogoU(cadena).then(res =>
-      {
-        console.log(res)
-      }).catch(err =>{
-        console.log(err)
-      })
-
-      this.CrearCatalogoU.reset();
+    this.servi.ActualizarCatalogoU(cadena).then(res =>
+    {
+      console.log(res)
+    }).catch(err =>{
+      console.log(err)
+    });
   }
 
 
@@ -271,6 +260,9 @@ export class CatalogoUniversalComponent implements OnInit {
         textNueValor_CatalogoEdi:  [],
       // textNueTipoCatEdi:  []
       });
+    
+    // Cargar todos los catálogos al iniciar
+    this.consultaCatalogosTotales();
   }
 
 }

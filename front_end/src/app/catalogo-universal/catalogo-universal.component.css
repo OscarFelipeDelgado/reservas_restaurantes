@@ -39,11 +39,12 @@ body, html {
 .tipo,
 .creaU,
 .editU {
-  margin: 0 auto 30px auto;
-  padding: 25px;
-  border-radius: 20px;
+  margin: 0 auto 20px auto;
+  padding: 10px 2px 0 2px;
+  border-radius: 10px;
   text-align: center;
-  max-width: 700px;
+  width: 100%;
+  max-width: 100%;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
@@ -59,19 +60,19 @@ body, html {
 }
 
 /* Colores de sección */
-.listaU {
+.listaU{
   background-color: rgba(255, 249, 196, 0.6);
 }
 
-.tipo {
+.tipo{
   background-color: rgba(252, 228, 236, 0.6);
 }
 
-.creaU {
+.creaU{
   background-color: rgba(200, 245, 217, 0.6);
 }
 
-.editU {
+.editU{
   background-color: rgba(255, 224, 178, 0.6);
 }
 
@@ -158,8 +159,6 @@ tr:nth-child(even) {
 
 /* Scroll para tablas */
 .tabla-scroll {
-  max-height: 300px;
-  overflow-y: auto;
   border: 1px solid #ccc;
   border-radius: 10px;
   background-color: white;
@@ -180,4 +179,21 @@ a {
 
 a:hover {
   background-color: #27ae60;
+}
+
+/* Estilo base para sticky-type */
+.sticky-type {
+  position: sticky;
+  top: 0;
+  margin: 0;
+  padding: 10px;
+  z-index: 10;
+  transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+
+/* Cuando el elemento está fijado (sticky), agrega sombra */
+.sticky-type:sticky {
+  opacity: 1; /* Totalmente visible */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.855); /* Sombra hacia abajo y los lados */
 }

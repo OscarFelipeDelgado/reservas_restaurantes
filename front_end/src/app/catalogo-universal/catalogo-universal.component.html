@@ -14,13 +14,19 @@
   
   <!-- Sección de todos los catálogos -->
   <div class="listaU">
-    <h2>Todos los Catálogos</h2>
+    <h2 class="sticky-type">Todos los Catálogos</h2>
 
+    <!-- 
     <button (click)="consultaCatalogosTotales()" style="margin-right: 30px">Listar todos los Catálogos</button>
     <button (click)="LimpiarLista1()">Limpiar todos los Catálogos</button>
+    -->
+
+    <!-- Botón para actualizar la lista -->
+    <button (click)="consultaCatalogosTotales()">Actualizar</button>
 
     <div *ngIf="controlLista1 && CataUniT.length > 0">
-      <h2>{{ tituloCataUniLista }}</h2>
+      <!-- Eliminar el título duplicado -->
+      <!-- <h2>{{ tituloCataUniLista }}</h2> -->
       <div class="tabla-scroll">
         <table>
           <thead>
@@ -44,18 +50,16 @@
   
   <!-- Sección de un tipo de catálogo -->
   <div class="tipo">
-    <h2>Mostrar por Tipo de Catálogo:</h2>
+    <h2>Mostrar por Tipo de Catálogo</h2>
 
     <form [formGroup]="CBCatalogoCatalogo">
-      <label for="CatCatalogofiltro">Tipos de Catálogos</label><br>
+      <label for="CatCatalogofiltro"></label><br>
 
       <select formControlName="CatCatalogofiltro" (click)="ListarTiposCatalogos()">
-      
         <option value="">Seleccione un tipo:</option>
         <option *ngFor="let Tip of ListaTipos" [value]="Tip.Id_Catalogo">
           {{ Tip.Valor_Catalogo }}
         </option>
-      
       </select>
 
       <br><br>
@@ -64,21 +68,24 @@
       <button type="button" (click)="LimpiarLista2()">Limpiar Catálogo</button>
 
       <div *ngIf="controlLista2">
+        <!-- Se elimina o comenta para evitar duplicar el encabezado -->
         <h2>{{ titloCataUniTipo }}</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>{{ tablaTipo_Catalogo[0] }}</th>
-               <th>{{ tablaTipo_Catalogo[1] }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let Tipo of CataUniTipo">
-              <td>{{ Tipo.Id_Catalogo }}</td>
-              <td>{{ Tipo.Valor_Catalogo }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="tabla-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>{{ tablaTipo_Catalogo[0] }}</th>
+                <th>{{ tablaTipo_Catalogo[1] }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let Tipo of CataUniTipo">
+                <td>{{ Tipo.Id_Catalogo }}</td>
+                <td>{{ Tipo.Valor_Catalogo }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </form>
   </div>
@@ -141,7 +148,7 @@
       </label>
       <br> <br>
 
-      <button type="submit" (click)="SelCataEditar()">Buscar Catalogo a Editar</button>
+      <button type="submit">Buscar Catalogo a Editar</button>
     
       <!-- Carga los valores del registro para modificarlos-->
      <h2>{{titloCataUniEditar}}</h2>
@@ -170,7 +177,7 @@
       </li>  
       <br><br>
 
-      <button  (click)="ActualizarCatalogo()">Actualizar Registro</button>
+      <button type="button" (click)="ActualizarCatalogo()">Actualizar Registro</button>
     
       <br><br>
   
