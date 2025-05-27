@@ -1,16 +1,15 @@
 <div class="container">
   <!-- Encabezado con título e imagen -->
-  <div class="imagen">
-    <img width="200" alt="Logo Reservas" src="/Logo_Reservas.png">
-    <h1>{{ title }}</h1>
-  </div>
-
-  <!-- Sección de navegación -->
-  <div class="dir">
+  <div class="encabezado">
+    <img width="200" alt="Logo Reservas" src="/Logo_Reservas.png" class="imagen">
     <!-- <h3><a routerLink="/Persona">PERSONAS</a></h3> -->
     <h3><a routerLink="/MenuInicio">MENÚ INICIAL</a></h3>
+    
   </div>
-  
+
+  <div class="dir">
+    <h1>{{ title }}</h1>
+  </div>
   
   <!-- Sección de todos los catálogos -->
   <div class="listaU">
@@ -97,30 +96,24 @@
 
     <h2>Registrar un Nuevo Catalogo Universal</h2>
 
-    <form (ngSubmit)="InsertarNuevoCatalogo()" [formGroup]="CrearCatalogoU">
-
-      <!-- Los otros controles para la captura de los datos del Catalogo -->
-      <span class="spn_lbl">Denominación: </span>
+    <form [formGroup]="CrearCatalogoU" (ngSubmit)="InsertarNuevoCatalogo()">
+      <span class="spn_lbl">Denominación:</span>
       <label for="textNueValor_Catalogo">
-          <input type="text" name="CtextNueValor_Catalogo" id="CtextNueValor_Catalogo" formControlName="textNueValor_Catalogo">
+        <input type="text" name="CtextNueValor_Catalogo" id="CtextNueValor_Catalogo" formControlName="textNueValor_Catalogo">
       </label>
-      <br><br>
 
-      Tipos de Catalogos: 
+      <span class="spn_lbl">Tipos de Catálogos:</span>
       <label for="CBTipo_Catalogo">
-        <select class="dropdown"   formControlName="CBTipo_Catalogo" (click)="ListarTiposCatalogos()">
-          <option value="">Tipos catalogos:</option>
+        <select formControlName="CBTipo_Catalogo" class="dropdown" (click)="ListarTiposCatalogos()">
+          
           <option *ngFor="let tidos of ListaTipos" [value]="tidos.Id_Catalogo">
             {{tidos.Valor_Catalogo}} - {{tidos.Id_Catalogo}}
           </option>
-    
+        
         </select>
-      </label>      
-      
-      <br><br>
+      </label>
 
-      <button type="submit">Nuevo Catalogo Universal</button>
-      <br><br>
+      <button type="submit">Nuevo Catálogo Universal</button>
     </form>
   </div>
  
