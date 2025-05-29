@@ -88,11 +88,12 @@ select {
 }
 
 table {
-  width: 10%;
+  width: 100%; /* Cambiado de 1% a 100% */
   border-collapse: collapse;
   margin-top: 15px;
   font-size: 15px;
 }
+
 
 thead {
   background-color: rgba(255, 238, 1, 0.5); /* #1976d2 con más opacidad */

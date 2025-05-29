@@ -135,7 +135,7 @@ export class DiuHoyService
   }
 
   // Obtener una persona por ID
-  getPersonaById(id: number): Promise<any> {
+    getPersonaById(id: number): Promise<any> {
     return axios.get(`${this.Url}/Personas/${id}`);
   }
 

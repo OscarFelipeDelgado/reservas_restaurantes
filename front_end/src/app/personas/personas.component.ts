@@ -56,22 +56,35 @@ export class PersonasComponent implements OnInit {
 
   // Mostrar persona por ID
   async mostrarPersonaPorId() {
-    const id = this.personaForm.value.personaId;
-    if (!id) {
-      alert("Por favor seleccione un ID de persona");
-      return;
-    }
-    try {
-      const response = await this.service.getPersonaById(id);
-      this.personaSeleccionada = response.data || response;
-      this.controlLista2 = true;
-    } catch (error) {
-      console.error("Error al obtener persona por ID", error);
-      alert("No se encontró persona con el ID especificado");
-      this.personaSeleccionada = null;
-      this.controlLista2 = false;
-    }
+  const id = this.personaForm.value.personaId;
+  if (!id) {
+    alert("Por favor seleccione un ID de persona");
+    return;
   }
+  try {
+    const response = await this.service.getPersonaById(id);
+    console.log('Respuesta persona por ID:', response);
+    // Si response es un array con un solo elemento, toma el primero
+    if (Array.isArray(response)) {
+      this.personaSeleccionada = response.length > 0 ? response[0] : null;
+    } else if (response.data) {
+      // Si viene dentro de data, puede ser un objeto o un array
+      this.personaSeleccionada = Array.isArray(response.data) ? response.data[0] : response.data;
+    } else {
+      this.personaSeleccionada = response;
+    }
+    this.controlLista2 = !!this.personaSeleccionada;
+    if (!this.personaSeleccionada) {
+      alert("No se encontró persona con el ID especificado");
+    }
+  } catch (error) {
+    console.error("Error al obtener persona por ID", error);
+    alert("No se encontró persona con el ID especificado");
+    this.personaSeleccionada = null;
+    this.controlLista2 = false;
+  }
+}
+
 
   // Limpiar listado persona individual
   limpiarListado2() {
